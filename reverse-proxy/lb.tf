@@ -1,11 +1,11 @@
 # Public Load Balancer
 resource "aws_lb" "main_public" {
-    name        = "${var.service}-wp-${var.environment}-lb"
+    name        = "${var.service}-reverse-proxy-${var.environment}-lb"
     internal           = false
     load_balancer_type = "application"
 
     security_groups = [
-        aws_security_group.main_public_access.id]
+        var.main_public_access_sg_id]
 
     subnets = [
         var.public_subnet_a_id,
@@ -23,7 +23,7 @@ resource "aws_lb" "main_public" {
 }
 
 resource "aws_lb_target_group" "main_public" {
-    name     = "${var.service}-wp-${var.environment}-lb-target"
+    name     = "${var.service}-reverse-proxy-${var.environment}-lb-target"
     port     = 80
     protocol = "HTTP"
     vpc_id   = var.vpc_id
