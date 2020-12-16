@@ -1,7 +1,7 @@
 #
 #
 # WordPress Security Group database access
-resource "aws_security_group" "main_db_access" {
+resource "aws_security_group" "website_db" {
     name        = "${var.service}-wp-${var.environment}-db-sg"
     description = "DB security group"
     vpc_id      = var.vpc_id
@@ -17,17 +17,17 @@ resource "aws_security_group" "main_db_access" {
     }
 }
 
-resource "aws_security_group_rule" "wp_db_ingress" {
+resource "aws_security_group_rule" "db_ingress" {
     from_port                = 3306
     protocol                 = "tcp"
-    security_group_id        = aws_security_group.main_db_access.id
+    security_group_id        = aws_security_group.website_db.id
     to_port                  = 3306
     type                     = "ingress"
     source_security_group_id = var.main_app_access_sg_id
 }
 
-resource "aws_security_group_rule" "wp_db_egress" {
-    security_group_id = aws_security_group.main_db_access.id
+resource "aws_security_group_rule" "db_egress" {
+    security_group_id = aws_security_group.website_db.id
     type              = "egress"
     from_port         = 0
     to_port           = 0

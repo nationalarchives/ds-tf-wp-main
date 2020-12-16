@@ -24,7 +24,7 @@ resource "aws_security_group_rule" "rp_http_ingress" {
     protocol          = "tcp"
     security_group_id = aws_security_group.rp.id
     type              = "ingress"
-    source_security_group_id = var.main_public_access_sg_id
+    source_security_group_id = var.website_public_access_sg_id
 }
 
 resource "aws_security_group_rule" "rp_ssh_ingress" {
@@ -33,16 +33,7 @@ resource "aws_security_group_rule" "rp_ssh_ingress" {
     protocol          = "tcp"
     security_group_id = aws_security_group.rp.id
     type              = "ingress"
-    source_security_group_id = var.main_public_access_sg_id
-}
-
-resource "aws_security_group_rule" "rp_dns_ingress" {
-    from_port         = 53
-    to_port           = 53
-    protocol          = "tcp"
-    security_group_id = aws_security_group.rp.id
-    type              = "ingress"
-    cidr_blocks       = ""
+    source_security_group_id = var.website_public_access_sg_id
 }
 
 resource "aws_security_group_rule" "rp_egress" {

@@ -14,7 +14,7 @@ resource "aws_db_instance" "main" {
     db_subnet_group_name        = var.db_subnet_group_name
     multi_az                    = var.db_multi_az
     vpc_security_group_ids      = [
-        aws_security_group.main_db_access.id]
+        aws_security_group.website_db.id]
     parameter_group_name        = aws_db_parameter_group.main.name
     allow_major_version_upgrade = true
     final_snapshot_identifier   = "${var.service}-wp-${var.environment}-final-db-snapshot"
