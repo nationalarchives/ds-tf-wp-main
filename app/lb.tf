@@ -1,11 +1,11 @@
 # Public Load Balancer
-resource "aws_lb" "main_public" {
+resource "aws_lb" "website_public" {
     name        = "${var.service}-wp-${var.environment}-lb"
     internal           = false
     load_balancer_type = "application"
 
     security_groups = [
-        aws_security_group.main_public_access.id]
+        aws_security_group.website_public.id]
 
     subnets = [
         var.public_subnet_a_id,
@@ -22,7 +22,7 @@ resource "aws_lb" "main_public" {
     }
 }
 
-resource "aws_lb_target_group" "main_public" {
+resource "aws_lb_target_group" "website_public" {
     name     = "${var.service}-wp-${var.environment}-lb-target"
     port     = 80
     protocol = "HTTP"
@@ -50,21 +50,21 @@ resource "aws_lb_target_group" "main_public" {
 
 resource "aws_lb_listener" "public_http_lb_listener" {
     default_action {
-        target_group_arn = aws_lb_target_group.main_public.arn
+        target_group_arn = aws_lb_target_group.website_public.arn
         type             = "forward"
     }
     protocol          = "HTTP"
-    load_balancer_arn = aws_lb.main_public.arn
+    load_balancer_arn = aws_lb.website_public.arn
     port              = 80
 }
 
 resource "aws_lb_listener" "public_https_lb_listener" {
     default_action {
-        target_group_arn = aws_lb_target_group.main_public.arn
+        target_group_arn = aws_lb_target_group.website_public.arn
         type             = "forward"
     }
     protocol          = "HTTPS"
-    load_balancer_arn = aws_lb.main_public.arn
+    load_balancer_arn = aws_lb.website_public.arn
     port              = 443
     certificate_arn   = var.public_ssl_cert_arn
     ssl_policy        = "ELBSecurityPolicy-FS-1-2-Res-2019-08"

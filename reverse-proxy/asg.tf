@@ -1,6 +1,6 @@
-resource "aws_autoscaling_group" "main" {
+resource "aws_autoscaling_group" "rp" {
     name                 = "${var.service}-reverse-proxy-${var.environment}-asg"
-    launch_configuration = aws_launch_configuration.main.name
+    launch_configuration = aws_launch_configuration.rp.name
 
     vpc_zone_identifier = [
         var.private_subnet_a_id,
@@ -23,7 +23,7 @@ resource "aws_autoscaling_group" "main" {
     )
 }
 
-resource "aws_autoscaling_attachment" "main" {
-    autoscaling_group_name = aws_autoscaling_group.main.id
-    alb_target_group_arn   = aws_lb_target_group.main_public.arn
+resource "aws_autoscaling_attachment" "rp" {
+    autoscaling_group_name = aws_autoscaling_group.rp.id
+    alb_target_group_arn   = aws_lb_target_group.rp_public.arn
 }

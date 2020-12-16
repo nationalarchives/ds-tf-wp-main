@@ -8,7 +8,7 @@ resource "aws_launch_configuration" "wp_launch_config" {
     key_name             = var.key_name
 
     security_groups = [
-        aws_security_group.main_app_access.id]
+        aws_security_group.website_app.id]
 
     root_block_device {
         volume_size = 100
@@ -24,7 +24,7 @@ data "template_file" "ec2_userdata" {
     template = file("${path.module}/scripts/userdata.sh")
 
     vars = {
-        mount_target       = aws_efs_file_system.main.dns_name
+        mount_target       = aws_efs_file_system.website.dns_name
         mount_dir          = var.efs_mount_dir
         db_host            = "db.${var.service}wp.${var.environment}.local"
         db_name            = var.wp_db_name

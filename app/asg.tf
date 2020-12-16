@@ -1,4 +1,4 @@
-resource "aws_autoscaling_group" "main" {
+resource "aws_autoscaling_group" "website" {
     name                 = "${var.service}-wp-${var.environment}-asg"
     launch_configuration = aws_launch_configuration.wp_launch_config.name
 
@@ -23,7 +23,7 @@ resource "aws_autoscaling_group" "main" {
     )
 }
 
-resource "aws_autoscaling_attachment" "main" {
-    autoscaling_group_name = aws_autoscaling_group.main.id
-    alb_target_group_arn   = aws_lb_target_group.main_public.arn
+resource "aws_autoscaling_attachment" "website" {
+    autoscaling_group_name = aws_autoscaling_group.website.id
+    alb_target_group_arn   = aws_lb_target_group.website_public.arn
 }
