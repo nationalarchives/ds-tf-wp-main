@@ -1,3 +1,6 @@
+# -----------------------------------------------------------------------------
+# IAM role and instance profile
+# -----------------------------------------------------------------------------
 resource "aws_iam_role" "website" {
     name               = "${var.service}-wp-${var.environment}-assume-role"
     assume_role_policy = <<EOF
@@ -22,7 +25,7 @@ resource "aws_iam_role_policy_attachment" "smm_ec2_role_policy" {
     role       = aws_iam_role.website.id
 }
 
-resource "aws_iam_instance_profile" "main" {
+resource "aws_iam_instance_profile" "website" {
     name = "${var.service}-wp-${var.environment}-iam-instance-profile"
     path = "/"
     role = aws_iam_role.website.name

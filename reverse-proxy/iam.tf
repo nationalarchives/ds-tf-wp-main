@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# Reverse proxy instance resource access
+# Reverse proxy role, policy and instance profile
 # -----------------------------------------------------------------------------
 resource "aws_iam_role" "rp_assume_role" {
     name               = "${var.service}-reverse-proxy-${var.environment}-role"

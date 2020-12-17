@@ -40,7 +40,7 @@ resource "aws_security_group_rule" "rp_egress" {
     from_port         = 0
     to_port           = 0
     protocol          = "-1"
-    security_group_id = aws_security_group.rp_access.id
+    security_group_id = aws_security_group.rp.id
     type              = "egress"
     cidr_blocks       = var.everyone
 }

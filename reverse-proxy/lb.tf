@@ -1,4 +1,6 @@
+# -----------------------------------------------------------------------------
 # Public Load Balancer
+# -----------------------------------------------------------------------------
 resource "aws_lb" "rp_public" {
     name        = "${var.service}-reverse-proxy-${var.environment}-lb"
     internal           = false

@@ -1,4 +1,6 @@
+# -----------------------------------------------------------------------------
 # Public Load Balancer
+# -----------------------------------------------------------------------------
 resource "aws_lb" "website_public" {
     name        = "${var.service}-wp-${var.environment}-lb"
     internal           = false

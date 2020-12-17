@@ -1,6 +1,6 @@
-#
-#
-# WordPress Security Group database access
+# -----------------------------------------------------------------------------
+# Security Group database access
+# -----------------------------------------------------------------------------
 resource "aws_security_group" "website_db" {
     name        = "${var.service}-wp-${var.environment}-db-sg"
     description = "DB security group"

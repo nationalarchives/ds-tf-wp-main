@@ -1,3 +1,6 @@
+# -----------------------------------------------------------------------------
+# Autoscaling group
+# -----------------------------------------------------------------------------
 resource "aws_autoscaling_group" "rp" {
     name                 = "${var.service}-reverse-proxy-${var.environment}-asg"
     launch_configuration = aws_launch_configuration.rp.name

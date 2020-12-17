@@ -1,9 +1,11 @@
-# WordPress autoscaling group and launch config
-resource "aws_launch_configuration" "wp_launch_config" {
+# -----------------------------------------------------------------------------
+# Launch config
+# -----------------------------------------------------------------------------
+resource "aws_launch_configuration" "website" {
     name_prefix          = "${var.service}wp"
     image_id             = var.ami_id
     instance_type        = var.instance_type
-    iam_instance_profile = aws_iam_instance_profile.main.name
+    iam_instance_profile = aws_iam_instance_profile.website.name
     user_data            = data.template_file.ec2_userdata.rendered
     key_name             = var.key_name
 

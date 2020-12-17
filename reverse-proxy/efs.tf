@@ -1,3 +1,6 @@
+# -----------------------------------------------------------------------------
+# EFS storage
+# -----------------------------------------------------------------------------
 resource "aws_efs_file_system" "rp_efs" {
     creation_token = "${var.service}-reverse-proxy-${var.environment}-efs"
     encrypted      = true

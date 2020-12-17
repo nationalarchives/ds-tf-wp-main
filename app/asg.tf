@@ -1,6 +1,9 @@
+# -----------------------------------------------------------------------------
+# Autoscaling group
+# -----------------------------------------------------------------------------
 resource "aws_autoscaling_group" "website" {
     name                 = "${var.service}-wp-${var.environment}-asg"
-    launch_configuration = aws_launch_configuration.wp_launch_config.name
+    launch_configuration = aws_launch_configuration.website.name
 
     vpc_zone_identifier = [
         var.private_subnet_a_id,

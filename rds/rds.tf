@@ -1,3 +1,6 @@
+# -----------------------------------------------------------------------------
+# RDS main and replica
+# -----------------------------------------------------------------------------
 resource "aws_db_instance" "main" {
     name                        = var.wp_db_name
     identifier                  = "${var.service}-wp-main"

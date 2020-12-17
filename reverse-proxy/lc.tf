@@ -1,4 +1,6 @@
-# WordPress autoscaling group and launch config
+# -----------------------------------------------------------------------------
+# Launch config
+# -----------------------------------------------------------------------------
 resource "aws_launch_configuration" "rp" {
     name_prefix          = "${var.service}rp"
     image_id             = var.ami_id

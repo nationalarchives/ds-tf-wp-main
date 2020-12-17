@@ -1,6 +1,6 @@
-#
-#
-# WordPress Security Group public access (load balancer)
+# -----------------------------------------------------------------------------
+# Security Group public access (load balancer)
+# -----------------------------------------------------------------------------
 resource "aws_security_group" "website_public" {
     name        = "${var.service}-wp-${var.environment}-public-sg"
     description = "WordPress Security Group HTTP and HTTPS access"
@@ -47,9 +47,9 @@ resource "aws_security_group_rule" "public_https_ingress" {
         var.everyone]
 }
 
-#
-#
-# WordPress Security Group applicatoin access
+# -----------------------------------------------------------------------------
+# Security Group application access
+# -----------------------------------------------------------------------------
 resource "aws_security_group" "website_app" {
     name        = "${var.service}-wp-${var.environment}-app-sg"
     description = "WordPress Security access to applicatoin"
@@ -94,9 +94,9 @@ resource "aws_security_group_rule" "app_https_ingress" {
     source_security_group_id = aws_security_group.website_public.id
 }
 
-#
-#
-# WordPress Security Group EFS access
+# -----------------------------------------------------------------------------
+# Security Group EFS access
+# -----------------------------------------------------------------------------
 resource "aws_security_group" "website_efs" {
     name        = "${var.service}-wp-${var.environment}-efs-access"
     description = "WordPress Security access to EFS storage"
