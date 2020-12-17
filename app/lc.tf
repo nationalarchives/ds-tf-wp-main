@@ -35,6 +35,5 @@ data "template_file" "ec2_userdata" {
         service            = var.service
         environment        = var.environment
         domain             = var.wp_domain_name
-        wpms_smtp_password = var.wpms_smtp_password
     }
 }

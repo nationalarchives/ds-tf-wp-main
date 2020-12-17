@@ -48,6 +48,4 @@ variable "wp_db_password" {}
 
 variable "wp_domain_name" {}
 
-variable "wpms_smtp_password" {}
-
 variable "everyone" {}
