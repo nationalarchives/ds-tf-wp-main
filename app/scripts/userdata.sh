@@ -64,7 +64,6 @@ define( 'BLOG_ID_CURRENT_SITE', 1 );
 define( 'WP_MEMORY_LIMIT', '256M' );
 define( 'WP_MAX_MEMORY_LIMIT', '2048M' );
 define( 'WPMS_ON', true );
-define( 'WPMS_SMTP_PASS', '${wpms_smtp_password}' );
 @ini_set( 'upload_max_size' , '64M' );
 @ini_set( 'post_max_size', '128M');
 @ini_set( 'memory_limit', '256M' );
