@@ -47,7 +47,7 @@ RewriteRule . index.php [L]
 # END WordPress" >> .htaccess
 
 # Create WP config file
-/usr/local/bin/wp config create --dbhost=${db_host} --dbname=${db_name} --dbuser=${db_user} --dbpass=${db_pass} --allow-root --extra-php <<PHP
+/usr/local/bin/wp config create --dbhost=${db_host} --dbname=${db_name} --dbuser=${db_user} --dbpass="${db_pass}" --allow-root --extra-php <<PHP
 /** Detect if SSL is used. This is required since we are terminating SSL either on CloudFront or on ELB */
 if ((\$_SERVER['HTTP_CLOUDFRONT_FORWARDED_PROTO'] == 'https') OR (\$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
     {\$_SERVER['HTTPS']='on';}
