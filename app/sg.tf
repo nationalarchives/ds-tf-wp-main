@@ -116,7 +116,7 @@ resource "aws_security_group_rule" "efs_ingress" {
     security_group_id        = aws_security_group.website_efs.id
     to_port                  = 65535
     type                     = "ingress"
-    source_security_group_id = aws_security_group.website_efs.id
+    source_security_group_id = aws_security_group.website_app.id
 }
 
 resource "aws_security_group_rule" "efs_egress" {
