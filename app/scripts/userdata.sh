@@ -76,6 +76,7 @@ PHP
 
 # Install themes
 /usr/local/bin/wp theme install /home/ec2-user/themes/tna.zip --force --allow-root 2>/var/www/html/wp-cli.log
+sudo mv /var/www/html/wp-content/themes/tna-master /var/www/html/wp-content/themes/tna
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-base/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-child-about-us-foi/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-child-pressroom/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
@@ -108,7 +109,7 @@ PHP
 /usr/local/bin/wp theme install https://github.com/nationalarchives/ds-wp-child-help-with-your-research/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-currency-converter/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-long-form-template-BT/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp wp theme install https://github.com/nationalarchives/tna-research-redesign/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp theme install https://github.com/nationalarchives/tna-research-redesign/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 
 # Install plugins
 /usr/local/bin/wp plugin install amazon-s3-and-cloudfront --force --allow-root 2>/var/www/html/wp-cli.log
