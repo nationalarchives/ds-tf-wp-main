@@ -9,8 +9,10 @@ sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,ret
 sudo chmod 777 ${mount_dir}
 cd ${mount_dir}
 sudo chmod go+rw .
-sudo ln -s /var/www/html ${mount_dir}
 cd /
+
+# Auto mount EFS storage on reboot
+sudo echo "${mount_target}:/ ${mount_dir} nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,fsc,_netdev 0 0" >> /etc/fstab
 
 # Apache config and unset upgrade to HTTP/2
 sudo echo "# file: /etc/httpd/conf.d/wordpress.conf
@@ -106,6 +108,7 @@ PHP
 /usr/local/bin/wp theme install https://github.com/nationalarchives/ds-wp-child-help-with-your-research/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-currency-converter/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-long-form-template-BT/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp wp theme install https://github.com/nationalarchives/tna-research-redesign/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 
 # Install plugins
 /usr/local/bin/wp plugin install amazon-s3-and-cloudfront --force --allow-root 2>/var/www/html/wp-cli.log
@@ -135,6 +138,11 @@ PHP
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-eventbrite-api/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-forms/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-newsletter/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
+
+# Link uploads directory to EFS
+sudo mkdir -p /mnt/efs/uploads
+sudo rm -rf /var/www/html/wp-content/uploads
+sudo ln -snf /mnt/efs/uploads /var/www/html/wp-content/uploads
 
 # Set file permissions for apache
 sudo chown apache:apache /var/www/html -R
