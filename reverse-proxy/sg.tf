@@ -49,12 +49,12 @@ resource "aws_security_group_rule" "rp_egress" {
 # Security group reverse proxy EFS
 # -----------------------------------------------------------------------------
 resource "aws_security_group" "rp_efs" {
-    name        = "${var.service}-reverse-proxy-${var.environment}-efs-sg"
+    name        = "${var.service}-efs-reverse-proxy-${var.environment}-sg"
     description = "Reverse proxy EFS storage security group"
     vpc_id      = var.vpc_id
 
     tags = {
-        Name            = "${var.service}-reverse-proxy-${var.environment}-efs-sg"
+        Name            = "${var.service}-efs-reverse-proxy-${var.environment}-sg"
         Service         = var.service
         Environment     = var.environment
         CostCentre      = var.cost_centre

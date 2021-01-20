@@ -2,11 +2,11 @@
 # EFS storage
 # -----------------------------------------------------------------------------
 resource "aws_efs_file_system" "rp_efs" {
-    creation_token = "${var.service}-reverse-proxy-${var.environment}-efs"
+    creation_token = "${var.service}-efs-reverse-proxy-${var.environment}"
     encrypted      = true
 
     tags = {
-        Name        = "${var.service}-reverse-proxy-${var.environment}-efs"
+        Name        = "${var.service}-efs-reverse-proxy-${var.environment}"
         Service     = var.service
         Environment = var.environment
         Terraform   = true
