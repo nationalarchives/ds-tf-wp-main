@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# WordPress internal domain name
+# Internal domain name
 # -----------------------------------------------------------------------------
 resource "aws_route53_zone" "internal" {
     name = var.int_domain_name
@@ -48,7 +48,7 @@ resource "aws_route53_record" "acme_challenge_record" {
 }
 
 # -----------------------------------------------------------------------------
-# Reverse proxy domain name and alias to reverse proxy instance
+# Public domain name (reverse proxy) and alias to reverse proxy instance
 # -----------------------------------------------------------------------------
 resource "aws_route53_zone" "reverse_proxy_public" {
     name = var.public_domain_name
