@@ -24,7 +24,7 @@ resource "aws_lb" "rp_public" {
 }
 
 resource "aws_lb_target_group" "rp_public" {
-    name     = "${var.service}-reverse-proxy-${var.environment}-lb-target"
+    name     = "${var.service}-reverse-proxy-${var.environment}"
     port     = 80
     protocol = "HTTP"
     vpc_id   = var.vpc_id
