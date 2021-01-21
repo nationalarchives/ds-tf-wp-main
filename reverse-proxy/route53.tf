@@ -5,7 +5,12 @@ resource "aws_route53_zone" "internal" {
     name = var.int_domain_name
 
     tags = {
-        Environment = var.environment
+        Service         = var.service
+        Environment     = var.environment
+        CostCentre      = var.cost_centre
+        Owner           = var.owner
+        CreatedBy       = var.created_by
+        Terraform       = true
     }
 }
 
@@ -49,7 +54,12 @@ resource "aws_route53_zone" "reverse_proxy_public" {
     name = var.public_domain_name
 
     tags = {
-        Environment = var.environment
+        Service         = var.service
+        Environment     = var.environment
+        CostCentre      = var.cost_centre
+        Owner           = var.owner
+        CreatedBy       = var.created_by
+        Terraform       = true
     }
 }
 
