@@ -5,6 +5,8 @@ This module comes as three sub modules;
 * Database (RDS)
 * Reverse proxy
 
+![Website diagram](diagram.png)
+
 ## Usage
 ### Prerequisites
 * WordPress prime AMI
@@ -56,7 +58,7 @@ private_subnet_*_id | Private subnet IDs | `subnet-b46032ec`
 ami_id | WordPress Primer AMI ID | `ami-0ee25cc86cea3`
 instance_type | EC2 instance type | `t2.large`
 key_name | Pair key name | `website-wp-key`
-wp_domain_name | Service internal domain name | `live.nationalarchives.gov.uk`
+wp_domain_name | Service internal domain name | `live.example.gov.uk`
 asg_max_size | Autoscaling Group max size | `2`
 asg_min_size | Autoscaling Group min size | `4`
 asg_desired_capacity | Autoscaling Group desired capacity | `2`
@@ -117,8 +119,8 @@ private_subnet_*_id | Private subnet IDs | `subnet-b46032ec`
 ami_id | WordPress Primer AMI ID | `ami-0ee25cc86cea3`
 instance_type | EC2 instance type | `t2.large`
 key_name | Pair key name | `website-wp-key`
-int_domain_name | Service internal domain name | `live.nationalarchives.gov.uk`
-public_domain_name | Service public domain name | `www.nationalarchives.gov.uk`
+int_domain_name | Service internal domain name | `live.example.gov.uk`
+public_domain_name | Service public domain name | `www.example.gov.uk`
 website_public_lb_dns_name | WordPress app load balancer DNS name (source output) | `website-*.eu-west-2.elb.amazonaws.com`
 website_public_lb_zone_id | WordPress app load balancer zone ID (source output) | `Z12O32XQLPTSW3`
 asg_max_size | Autoscaling Group max size | `2`
