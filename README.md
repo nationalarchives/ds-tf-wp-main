@@ -13,7 +13,7 @@ This module comes as three sub modules;
 * RDS snapshot of database
 
 ```hcl-terraform
-# WordPres application
+# WordPress application
 module "app" {
     source = "git@github.com:nationalarchives/ds-tf-wp-website//app?ref=main"
     var_one = "foo"
