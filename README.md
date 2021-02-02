@@ -30,8 +30,15 @@ module "rds" {
 ``` 
 ```hcl-terraform
 # Reverse proxy
-module "rds" {
+module "reverse_proxy" {
     source = "git@github.com:nationalarchives/ds-tf-wp-website//reverse-proxy?ref=main"
+    var_one = "foo"
+    var_two = "bar"
+}
+
+# Nginx configuration
+module "nginx_conf" {
+    source = "git@github.com:nationalarchives/ds-tf-wp-website//nginx-conf?ref=main"
     var_one = "foo"
     var_two = "bar"
 }
@@ -134,3 +141,11 @@ website_efs_sg_id | WordPress app EFS security group ID (source output) | `sg-4d
 website_public_access_sg_id | WordPress app public security group ID (source output) | `sg-4d90f4f2c5f5e4081`
 everyone | CIDR block public access | `0.0.0.0/0`
 patch_group_name | Systems Manager automated patch group name | `linux-2-patch-group`
+
+### Nginx configuration
+
+Name | Description | Example
+------------ | ------------- | -------------
+service | Service name | `website`
+deployment_s3_bucket | S3 bucket name | `ds-deployment`
+nginx_conf_s3_key | Object name (config file) | `nginx.conf`
