@@ -22,7 +22,7 @@ EOF
 
 resource "aws_iam_policy" "rp_config_s3" {
     name        = "${var.service}-reverse-proxy-${var.environment}-s3-policy"
-    description = "Access to nginx configuration files"
+    description = "S3 access to nginx configuration files"
 
     policy = <<EOF
 {
