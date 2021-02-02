@@ -34,7 +34,7 @@ resource "aws_iam_policy" "rp_config_s3" {
         "s3:ListBucket"
       ],
      "Resource": [
-        "arn:aws:s3:::tna-dev-deployment"
+        "arn:aws:s3:::${var.deployment_s3_bucket}"
       ]
     },
     {
@@ -43,7 +43,7 @@ resource "aws_iam_policy" "rp_config_s3" {
         "s3:GetObject"
       ],
       "Resource": [
-         "arn:aws:s3:::tna-dev-deployment/main-wp/nginx-configs/*"
+         "arn:aws:s3:::${var.deployment_s3_bucket}/${var.service}/*"
       ]
     }
   ]

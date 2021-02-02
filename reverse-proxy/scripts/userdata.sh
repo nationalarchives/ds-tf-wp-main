@@ -23,7 +23,7 @@ sudo amazon-linux-extras install -y nginx1
 sudo systemctl enable --now nginx
 
 # Copy configuration file
-sudo aws s3 cp s3://tna-dev-deployment/main-wp/nginx-configs/nginx.conf /etc/nginx/nginx.conf
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/${nginx_conf_s3_key} /etc/nginx/nginx.conf
 
 # Restart nginx to reload new config file
 sudo systemctl restart nginx
