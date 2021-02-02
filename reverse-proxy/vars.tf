@@ -44,6 +44,10 @@ variable "key_name" {}
 
 variable "efs_mount_dir" {}
 
+variable "deployment_s3_bucket" {}
+
+variable "nginx_conf_s3_key" {}
+
 variable "int_domain_name" {}
 
 variable "public_domain_name" {}
