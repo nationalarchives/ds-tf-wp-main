@@ -26,6 +26,7 @@ data "template_file" "ec2_userdata" {
     template = file("${path.module}/scripts/userdata.sh")
 
     vars = {
+        service                 = var.service
         mount_target            = aws_efs_file_system.rp_efs.dns_name
         mount_dir               = var.efs_mount_dir
         deployment_s3_bucket    = var.deployment_s3_bucket
