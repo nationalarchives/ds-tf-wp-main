@@ -16,7 +16,7 @@ resource "aws_instance" "wp_primer" {
     user_data            = data.template_file.ec2_user_data.rendered
 
     tags = {
-        Name            = "website-wp-primer-${var.environment}"
+        Name            = "${var.service}-wp-primer-${var.environment}"
         Service         = var.service
         Environment     = var.environment
         CostCentre      = var.cost_centre
@@ -27,10 +27,16 @@ resource "aws_instance" "wp_primer" {
 }
 
 data "template_file" "ec2_user_data" {
-    template = file("${path.module}/script/userdata.sh")
+    template = file("${path.module}/scripts/userdata.sh")
 
     vars = {
         environment  = var.environment
         github_token = var.github_token
+        db_host            = "db.${var.service}wp.${var.environment}.local"
+        db_name            = var.wp_db_name
+        db_user            = var.wp_db_username
+        db_pass            = var.wp_db_password
+        environment        = var.environment
+        domain             = var.wp_domain_name
     }
 }

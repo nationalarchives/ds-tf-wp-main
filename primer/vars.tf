@@ -29,3 +29,11 @@ variable "subnet_id" {}
 variable "volume_size" {}
 
 variable "github_token" {}
+
+variable "wp_db_name" {}
+
+variable "wp_db_username" {}
+
+variable "wp_db_password" {}
+
+variable "wp_domain_name" {}

@@ -28,12 +28,5 @@ data "template_file" "ec2_userdata" {
     vars = {
         mount_target       = aws_efs_file_system.website.dns_name
         mount_dir          = var.efs_mount_dir
-        db_host            = "db.${var.service}wp.${var.environment}.local"
-        db_name            = var.wp_db_name
-        db_user            = var.wp_db_username
-        db_pass            = var.wp_db_password
-        service            = var.service
-        environment        = var.environment
-        domain             = var.wp_domain_name
     }
 }
