@@ -52,8 +52,12 @@ resource "aws_lb_target_group" "website_public" {
 
 resource "aws_lb_listener" "public_http_lb_listener" {
     default_action {
-        target_group_arn = aws_lb_target_group.website_public.arn
-        type             = "forward"
+        type = "redirect"
+        redirect {
+            port        = "443"
+            protocol    = "HTTPS"
+            status_code = "HTTP_301"
+        }
     }
     protocol          = "HTTP"
     load_balancer_arn = aws_lb.website_public.arn
@@ -62,8 +66,8 @@ resource "aws_lb_listener" "public_http_lb_listener" {
 
 resource "aws_lb_listener" "public_https_lb_listener" {
     default_action {
-        target_group_arn = aws_lb_target_group.website_public.arn
         type             = "forward"
+        target_group_arn = aws_lb_target_group.website_public.arn
     }
     protocol          = "HTTPS"
     load_balancer_arn = aws_lb.website_public.arn
