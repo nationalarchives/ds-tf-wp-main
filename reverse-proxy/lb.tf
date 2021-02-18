@@ -51,8 +51,12 @@ resource "aws_lb_target_group" "rp_public" {
 
 resource "aws_lb_listener" "public_http_lb_listener" {
     default_action {
-        target_group_arn = aws_lb_target_group.rp_public.arn
-        type             = "forward"
+        type = "redirect"
+        redirect {
+            port        = "443"
+            protocol    = "HTTPS"
+            status_code = "HTTP_301"
+        }
     }
     protocol          = "HTTP"
     load_balancer_arn = aws_lb.rp_public.arn
