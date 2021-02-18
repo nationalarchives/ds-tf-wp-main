@@ -18,6 +18,8 @@ resource "aws_security_group" "website_db" {
 }
 
 resource "aws_security_group_rule" "db_ingress" {
+    count = var.main_app_access_sg_id != "" ? 1 : 0
+
     from_port                = 3306
     protocol                 = "tcp"
     security_group_id        = aws_security_group.website_db.id
