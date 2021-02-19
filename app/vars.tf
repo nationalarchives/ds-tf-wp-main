@@ -49,3 +49,15 @@ variable "wp_db_password" {}
 variable "wp_domain_name" {}
 
 variable "everyone" {}
+
+variable "efs_backup_schedule" {}
+
+variable "efs_backup_start_window" {}
+
+variable "efs_backup_completion_window" {}
+
+variable "efs_backup_cold_storage_after" {}
+
+variable "efs_backup_delete_after" {}
+
+variable "efs_backup_kms_key_arn" {}
