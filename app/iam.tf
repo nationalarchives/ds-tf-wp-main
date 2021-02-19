@@ -35,7 +35,7 @@ resource "aws_iam_instance_profile" "website" {
 # IAM EFS backup role
 # -----------------------------------------------------------------------------
 resource "aws_iam_role" "efs_backup" {
-  name               = "${var.service}-wp-${var.environment}-efs-backup"
+  name               = "${var.service}-wp-${var.environment}-efs-backup-role"
   assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -52,7 +52,7 @@ resource "aws_iam_role" "efs_backup" {
 POLICY
 }
 
-resource "aws_iam_role_policy_attachment" "example" {
+resource "aws_iam_role_policy_attachment" "efs_backup" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
   role       = aws_iam_role.efs_backup.name
 }
