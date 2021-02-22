@@ -149,7 +149,7 @@ curl -H "Authorization: token ${github_token}" -L https://github.com/nationalarc
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-child-about-us-commercial/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/ds-wp-child-help-with-your-research/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-currency-converter/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp theme install https://github.com/nationalarchives/tna-long-form-template-BT/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp theme install https://github.com/nationalarchives/tna-base-long-form/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-research-redesign/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 
 # Install plugins
