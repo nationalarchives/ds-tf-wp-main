@@ -152,6 +152,7 @@ curl -H "Authorization: token ${github_token}" -L https://github.com/nationalarc
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-base-long-form/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-research-redesign/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-child-archives-sector/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp theme install https://github.com/nationalarchives/tna-child-portals/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 
 # Install plugins
 /usr/local/bin/wp plugin install amazon-s3-and-cloudfront --force --allow-root 2>/var/www/html/wp-cli.log
