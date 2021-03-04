@@ -17,3 +17,11 @@ output "website_public_lb_dns_name" {
 output "website_public_lb_zone_id" {
     value = aws_lb.website_public.zone_id
 }
+
+output "efs_mount_target" {
+    value = aws_efs_file_system.website.dns_name
+}
+
+output "efs_mount_dr" {
+    value = var.efs_mount_dir
+}
