@@ -149,8 +149,10 @@ curl -H "Authorization: token ${github_token}" -L https://github.com/nationalarc
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-child-about-us-commercial/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/ds-wp-child-help-with-your-research/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-currency-converter/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp theme install https://github.com/nationalarchives/tna-long-form-template-BT/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp theme install https://github.com/nationalarchives/tna-base-long-form/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-research-redesign/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp theme install https://github.com/nationalarchives/tna-child-archives-sector/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp theme install https://github.com/nationalarchives/tna-child-portals/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 
 # Install plugins
 /usr/local/bin/wp plugin install amazon-s3-and-cloudfront --force --allow-root 2>/var/www/html/wp-cli.log
@@ -177,7 +179,6 @@ curl -H "Authorization: token ${github_token}" -L https://github.com/nationalarc
 /usr/local/bin/wp plugin install https://cdn.nationalarchives.gov.uk/wp-plugins/post-tags-and-categories-for-pages.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://cdn.nationalarchives.gov.uk/wp-plugins/wds-active-plugin-data.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-profile-page/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-eventbrite-api/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-forms/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-newsletter/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 
