@@ -61,3 +61,5 @@ variable "efs_backup_cold_storage_after" {}
 variable "efs_backup_delete_after" {}
 
 variable "efs_backup_kms_key_arn" {}
+
+variable "deployment_s3_bucket" {}

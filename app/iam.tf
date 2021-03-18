@@ -20,6 +20,42 @@ resource "aws_iam_role" "website" {
 EOF
 }
 
+resource "aws_iam_policy" "wp_deployment_s3" {
+    name        = "${var.service}-wp-${var.environment}-s3-policy"
+    description = "WP deployment S3 access"
+
+    policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket"
+      ],
+     "Resource": [
+        "arn:aws:s3:::${var.deployment_s3_bucket}"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+         "arn:aws:s3:::${var.deployment_s3_bucket}/${var.service}/*"
+      ]
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "wp_deployment_s3_policy" {
+    policy_arn = aws_iam_policy.wp_deployment_s3.arn
+    role       = aws_iam_role.website.id
+}
+
 resource "aws_iam_role_policy_attachment" "smm_ec2_role_policy" {
     policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
     role       = aws_iam_role.website.id

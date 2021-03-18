@@ -4,6 +4,7 @@ resource "aws_instance" "wp_primer" {
     instance_type               = var.instance_type
     key_name                    = var.key_name
     subnet_id                   = var.subnet_id
+    iam_instance_profile        = aws_iam_instance_profile.primer.name
     vpc_security_group_ids      = [
         var.website_app_sg_id
     ]
