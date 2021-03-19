@@ -40,7 +40,9 @@ resource "aws_iam_policy" "wp_deployment_s3" {
     {
       "Effect": "Allow",
       "Action": [
-        "s3:GetObject"
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:PutObjectAcl"
       ],
       "Resource": [
          "arn:aws:s3:::${var.deployment_s3_bucket}/${var.service}/*"
