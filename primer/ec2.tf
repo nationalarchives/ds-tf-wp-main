@@ -31,13 +31,20 @@ data "template_file" "ec2_user_data" {
     template = file("${path.module}/scripts/userdata.sh")
 
     vars = {
-        environment  = var.environment
-        github_token = var.github_token
-        db_host            = "db.${var.service}wp.${var.environment}.local"
-        db_name            = var.wp_db_name
-        db_user            = var.wp_db_username
-        db_pass            = var.wp_db_password
-        environment        = var.environment
-        domain             = var.wp_domain_name
+        environment    = var.environment
+        github_token   = var.github_token
+        db_host        = "db.${var.service}wp.${var.environment}.local"
+        db_name        = var.wp_db_name
+        db_user        = var.wp_db_username
+        db_pass        = var.wp_db_password
+        environment    = var.environment
+        domain         = var.wp_domain_name
+        ses_user       = var.ses_user
+        ses_pass       = var.ses_pass
+        ses_host       = var.ses_host
+        ses_port       = var.ses_port
+        ses_secure     = var.ses_secure
+        ses_from_email = var.ses_from_email
+        ses_from_name  = var.ses_from_name
     }
 }

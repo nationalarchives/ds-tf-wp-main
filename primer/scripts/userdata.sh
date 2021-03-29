@@ -100,7 +100,14 @@ define( 'SITE_ID_CURRENT_SITE', 1 );
 define( 'BLOG_ID_CURRENT_SITE', 1 );
 define( 'WP_MEMORY_LIMIT', '256M' );
 define( 'WP_MAX_MEMORY_LIMIT', '2048M' );
-define( 'WPMS_ON', true );
+define( 'SMTP_SES', true);
+define( 'SMTP_SES_USER', '${ses_user}' );
+define( 'SMTP_SES_PASS', '${ses_pass}' );
+define( 'SMTP_SES_HOST', '${ses_host}' );
+define( 'SMTP_SES_PORT', ${ses_port} );
+define( 'SMTP_SES_SECURE', '${ses_secure}' );
+define( 'SMTP_SES_FROM_EMAIL', '${ses_from_email}' );
+define( 'SMTP_SES_FROM_NAME', '${ses_from_name}' );
 @ini_set( 'upload_max_size' , '64M' );
 @ini_set( 'post_max_size', '128M');
 @ini_set( 'memory_limit', '256M' );
@@ -182,6 +189,7 @@ curl -H "Authorization: token ${github_token}" -L https://github.com/nationalarc
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-profile-page/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-forms/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-newsletter/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp plugin install https://github.com/nationalarchives/ds-tna-wp-ses/archive/refs/heads/main.zip --force --allow-root 2>/var/www/html/wp-cli.log
 
 # Rename TNA theme dir
 sudo mv /var/www/html/wp-content/themes/tna-master /var/www/html/wp-content/themes/tna

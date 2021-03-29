@@ -39,3 +39,17 @@ variable "wp_db_password" {}
 variable "wp_domain_name" {}
 
 variable "deployment_s3_bucket" {}
+
+variable "ses_user" {}
+
+variable "ses_pass" {}
+
+variable "ses_host" {}
+
+variable "ses_port" {}
+
+variable "ses_secure" {}
+
+variable "ses_from_email" {}
+
+variable "ses_from_name" {}
