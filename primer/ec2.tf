@@ -39,8 +39,8 @@ data "template_file" "ec2_user_data" {
         db_pass        = var.wp_db_password
         environment    = var.environment
         domain         = var.wp_domain_name
-        ses_user       = var.ses_user
-        ses_pass       = var.ses_pass
+        ses_user       = var.ses_username
+        ses_pass       = var.ses_password
         ses_host       = var.ses_host
         ses_port       = var.ses_port
         ses_secure     = var.ses_secure

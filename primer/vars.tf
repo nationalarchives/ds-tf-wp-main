@@ -40,9 +40,9 @@ variable "wp_domain_name" {}
 
 variable "deployment_s3_bucket" {}
 
-variable "ses_user" {}
+variable "ses_username" {}
 
-variable "ses_pass" {}
+variable "ses_password" {}
 
 variable "ses_host" {}
 
