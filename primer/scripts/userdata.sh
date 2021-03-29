@@ -12,6 +12,7 @@ sudo systemctl start httpd
 sudo yum install -y php-simplexml
 sudo yum install -y php72-gd
 sudo yum install -y php-pecl-imagick
+sudo yum install -y php-mbstring
 
 sudo systemctl restart php-fpm.service
 sudo systemctl restart httpd.service
