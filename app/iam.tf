@@ -64,7 +64,7 @@ resource "aws_iam_role_policy_attachment" "smm_ec2_role_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "cloudwatch_agent_role_policy" {
-    policy_arn = "arn:aws:iam::aws:policy/service-role/CloudWatchAgentServerPolicy"
+    policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
     role       = aws_iam_role.website.id
 }
 
