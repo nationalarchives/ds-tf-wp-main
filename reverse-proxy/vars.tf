@@ -57,3 +57,15 @@ variable "website_public_lb_dns_name" {}
 variable "website_public_lb_zone_id" {}
 
 variable "everyone" {}
+
+variable "efs_backup_schedule" {}
+
+variable "efs_backup_start_window" {}
+
+variable "efs_backup_completion_window" {}
+
+variable "efs_backup_cold_storage_after" {}
+
+variable "efs_backup_delete_after" {}
+
+variable "efs_backup_kms_key_arn" {}
