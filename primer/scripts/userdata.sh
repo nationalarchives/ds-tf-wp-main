@@ -82,7 +82,8 @@ RewriteRule ^ - [L]
 RewriteRule ^(wp-(content|admin|includes).*) $1 [L]
 RewriteRule ^(.*\.php)$ wp/$1 [L]
 RewriteRule . index.php [L]
-# END WordPress" >> /var/www/html/.htaccess
+# END WordPress\
+Options All -Indexes" >> /var/www/html/.htaccess
 
 wp core download --allow-root
 
