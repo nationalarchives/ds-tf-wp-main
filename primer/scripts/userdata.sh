@@ -21,6 +21,9 @@ sudo systemctl enable httpd
 # Install NFS packages
 sudo apt install -y nfs-common
 
+# Install Cloudwatch agent
+sudo yum install amazon-cloudwatch-agent
+
 sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
 sudo /sbin/mkswap /var/swap.1
 sudo /sbin/swapon /var/swap.1s
