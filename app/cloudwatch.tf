@@ -5,7 +5,7 @@
 # LB
 
 resource "aws_cloudwatch_dashboard" "discovery" {
-  dashboard_name = "discovery-dashboard"
+  dashboard_name = "${var.service}-wp-dashboard"
 
   dashboard_body = <<EOF
 {
@@ -40,7 +40,7 @@ resource "aws_cloudwatch_dashboard" "discovery" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/ApplicationELB", "ActiveConnectionCount", "LoadBalancer", aws_lb.website_public.arn_suffix ],
+                    [ "AWS/ApplicationELB", "ActiveConnectionCount", "LoadBalancer", "${aws_lb.website_public.arn_suffix}" ],
                     [ ".", "RequestCount", ".", "." ]
                 ],
                 "region": "eu-west-2",
@@ -57,7 +57,7 @@ resource "aws_cloudwatch_dashboard" "discovery" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/ApplicationELB", "HTTPCode_Target_5XX_Count", "LoadBalancer", aws_lb.website_public.arn_suffix ],
+                    [ "AWS/ApplicationELB", "HTTPCode_Target_5XX_Count", "LoadBalancer", "${aws_lb.website_public.arn_suffix}" ],
                     [ ".", "HTTPCode_Target_2XX_Count", ".", "." ]
                 ],
                 "region": "eu-west-2",
@@ -85,7 +85,7 @@ resource "aws_cloudwatch_dashboard" "discovery" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/EFS", "StorageBytes", "StorageClass", "Total", "FileSystemId", "fs-625d7f93" ]
+                    [ "AWS/EFS", "StorageBytes", "StorageClass", "Total", "FileSystemId", "${aws_efs_file_system.website.id}" ]
                 ],
                 "region": "eu-west-2",
                 "title": "EFS Storage"
@@ -101,7 +101,7 @@ resource "aws_cloudwatch_dashboard" "discovery" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/EFS", "TotalIOBytes", "FileSystemId", aws_efs_file_system.website.id ]
+                    [ "AWS/EFS", "TotalIOBytes", "FileSystemId", "${aws_efs_file_system.website.id}" ]
                 ],
                 "region": "eu-west-2",
                 "title": "EFS Total IO"
