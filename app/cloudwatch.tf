@@ -95,6 +95,22 @@ resource "aws_cloudwatch_dashboard" "app" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
+                    [ "CWAgent", "mem_used_percent", "host", "ip-10-128-34-118.eu-west-2.compute.internal" ]
+                ],
+                "region": "eu-west-2",
+                "title": "web server memory",
+            },
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 15,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
                     [ "AWS/EC2", "NetworkIn" ],
                     [ ".", "NetworkOut" ]
                 ],
@@ -103,9 +119,26 @@ resource "aws_cloudwatch_dashboard" "app" {
             }
         },
         {
+            "type": "metric",
+            "x": 12,
+            "y": 15,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "ReadLatency", "DBInstanceIdentifier", "website-wp-main" ],
+                    [ ".", "CPUUtilization", ".", "." ]
+                ],
+                "region": "eu-west-2",
+                "title": "RDS Stats",
+            }
+        },
+        {
             "type": "text",
             "x": 0,
-            "y": 15,
+            "y": 21,
             "width": 24,
             "height": 1,
             "properties": {
@@ -115,7 +148,7 @@ resource "aws_cloudwatch_dashboard" "app" {
         {
             "type": "metric",
             "x": 0,
-            "y": 16,
+            "y": 22,
             "width": 12,
             "height": 6,
             "properties": {
@@ -131,7 +164,7 @@ resource "aws_cloudwatch_dashboard" "app" {
         {
             "type": "metric",
             "x": 12,
-            "y": 16,
+            "y": 22,
             "width": 12,
             "height": 6,
             "properties": {
