@@ -1,10 +1,4 @@
-# TODO Resources to monitor
-
-# ASG
-# EFS
-# LB
-
-resource "aws_cloudwatch_dashboard" "discovery" {
+resource "aws_cloudwatch_dashboard" "app" {
   dashboard_name = "${var.service}-wp-dashboard"
 
   dashboard_body = <<EOF
@@ -72,55 +66,13 @@ resource "aws_cloudwatch_dashboard" "discovery" {
             "width": 24,
             "height": 1,
             "properties": {
-                "markdown": "\n## Disk Activity\n"
-            }
-        },
-        {
-            "type": "metric",
-            "x": 0,
-            "y": 9,
-            "width": 12,
-            "height": 6,
-            "properties": {
-                "view": "timeSeries",
-                "stacked": false,
-                "metrics": [
-                    [ "AWS/EFS", "StorageBytes", "StorageClass", "Total", "FileSystemId", "${aws_efs_file_system.website.id}" ]
-                ],
-                "region": "eu-west-2",
-                "title": "EFS Storage"
-            }
-        },
-        {
-            "type": "metric",
-            "x": 12,
-            "y": 9,
-            "width": 12,
-            "height": 6,
-            "properties": {
-                "view": "timeSeries",
-                "stacked": false,
-                "metrics": [
-                    [ "AWS/EFS", "TotalIOBytes", "FileSystemId", "${aws_efs_file_system.website.id}" ]
-                ],
-                "region": "eu-west-2",
-                "title": "EFS Total IO"
-            }
-        },
-        {
-            "type": "text",
-            "x": 0,
-            "y": 15,
-            "width": 24,
-            "height": 1,
-            "properties": {
                 "markdown": "\n## Server Stats\n"
             }
         },
         {
             "type": "metric",
             "x": 0,
-            "y": 16,
+            "y": 9,
             "width": 12,
             "height": 6,
             "properties": {
@@ -136,7 +88,7 @@ resource "aws_cloudwatch_dashboard" "discovery" {
         {
             "type": "metric",
             "x": 12,
-            "y": 16,
+            "y": 9,
             "width": 12,
             "height": 6,
             "properties": {
@@ -148,6 +100,48 @@ resource "aws_cloudwatch_dashboard" "discovery" {
                 ],
                 "region": "eu-west-2",
                 "title": "EC2 Network"
+            }
+        },
+        {
+            "type": "text",
+            "x": 0,
+            "y": 15,
+            "width": 24,
+            "height": 1,
+            "properties": {
+                "markdown": "\n## Disk Activity\n"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 16,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/EFS", "StorageBytes", "StorageClass", "Total", "FileSystemId", "${aws_efs_file_system.website.id}" ]
+                ],
+                "region": "eu-west-2",
+                "title": "EFS Storage"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 16,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/EFS", "TotalIOBytes", "FileSystemId", "${aws_efs_file_system.website.id}" ]
+                ],
+                "region": "eu-west-2",
+                "title": "EFS Total IO"
             }
         }
     ]
