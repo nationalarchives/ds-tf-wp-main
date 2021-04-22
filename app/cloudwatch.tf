@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_dashboard" "app" {
-  dashboard_name = "${var.service}-wp-dashboard"
+    dashboard_name = "${var.service}-wp-dashboard"
 
-  dashboard_body = <<EOF
+    dashboard_body = <<EOF
 {
     "widgets": [
         {
@@ -55,8 +55,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                     [ ".", "HTTPCode_Target_2XX_Count", ".", "." ]
                 ],
                 "region": "eu-west-2",
-                "title": "HTTP Status Codes",
-                "period": 300
+                "title": "HTTP Status Codes"
             }
         },
         {
@@ -98,7 +97,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                     [ "CWAgent", "mem_used_percent", "host", "ip-10-128-34-118.eu-west-2.compute.internal" ]
                 ],
                 "region": "eu-west-2",
-                "title": "web server memory",
+                "title": "web server memory"
             },
         },
         {
@@ -132,7 +131,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                     [ ".", "CPUUtilization", ".", "." ]
                 ],
                 "region": "eu-west-2",
-                "title": "RDS Stats",
+                "title": "RDS Stats"
             }
         },
         {
