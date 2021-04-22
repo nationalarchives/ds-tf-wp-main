@@ -94,7 +94,8 @@ resource "aws_cloudwatch_dashboard" "app" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "CWAgent", "mem_used_percent", "host", "ip-10-128-34-118.eu-west-2.compute.internal" ]
+                    [ "CWAgent", "mem_used_percent", "host", "${var.lb_target_fqdns[0]}" ],
+                    [ "CWAgent", "mem_used_percent", "host", "${var.lb_target_fqdns[1]}" ]
                 ],
                 "region": "eu-west-2",
                 "title": "web server memory"
