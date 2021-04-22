@@ -98,7 +98,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                 ],
                 "region": "eu-west-2",
                 "title": "web server memory"
-            },
+            }
         },
         {
             "type": "metric",
