@@ -21,6 +21,10 @@ sudo systemctl enable httpd
 # Install NFS packages
 sudo apt install -y nfs-common
 
+# Install Cloudwatch agent
+sudo yum install amazon-cloudwatch-agent -y
+sudo amazon-linux-extras install -y collectd
+
 sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
 sudo /sbin/mkswap /var/swap.1
 sudo /sbin/swapon /var/swap.1s
@@ -79,7 +83,8 @@ RewriteRule ^ - [L]
 RewriteRule ^(wp-(content|admin|includes).*) $1 [L]
 RewriteRule ^(.*\.php)$ wp/$1 [L]
 RewriteRule . index.php [L]
-# END WordPress" >> /var/www/html/.htaccess
+# END WordPress\
+Options All -Indexes" >> /var/www/html/.htaccess
 
 wp core download --allow-root
 
