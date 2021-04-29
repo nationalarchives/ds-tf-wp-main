@@ -34,7 +34,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/ApplicationELB", "ActiveConnectionCount", "LoadBalancer", "${aws_lb.website_public.arn_suffix}" ],
+                    [ "AWS/ApplicationELB", "ActiveConnectionCount", "LoadBalancer", "${var.website_public_lb_arn_suffix}" ],
                     [ ".", "RequestCount", ".", "." ]
                 ],
                 "region": "eu-west-2",
@@ -51,7 +51,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/ApplicationELB", "HTTPCode_Target_5XX_Count", "LoadBalancer", "${aws_lb.website_public.arn_suffix}" ],
+                    [ "AWS/ApplicationELB", "HTTPCode_Target_5XX_Count", "LoadBalancer", "${var.website_public_lb_arn_suffix}" ],
                     [ ".", "HTTPCode_Target_2XX_Count", ".", "." ]
                 ],
                 "region": "eu-west-2",
@@ -94,8 +94,8 @@ resource "aws_cloudwatch_dashboard" "app" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "CWAgent", "mem_used_percent", "host", "${var.lb_target_fqdns[0]}" ],
-                    [ "CWAgent", "mem_used_percent", "host", "${var.lb_target_fqdns[1]}" ]
+                    [ "CWAgent", "mem_used_percent", "host", "${var.website_lb_target_fqdns[0]}" ],
+                    [ "CWAgent", "mem_used_percent", "host", "${var.website_lb_target_fqdns[1]}" ]
                 ],
                 "region": "eu-west-2",
                 "title": "web server memory"
@@ -128,7 +128,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/RDS", "ReadLatency", "DBInstanceIdentifier", "website-wp-main" ],
+                    [ "AWS/RDS", "ReadLatency", "DBInstanceIdentifier", "${var.website_main_rds_identifier}" ],
                     [ ".", "CPUUtilization", ".", "." ]
                 ],
                 "region": "eu-west-2",
@@ -155,7 +155,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/EFS", "StorageBytes", "StorageClass", "Total", "FileSystemId", "${aws_efs_file_system.website.id}" ]
+                    [ "AWS/EFS", "StorageBytes", "StorageClass", "Total", "FileSystemId", "${var.website_efs_id}" ]
                 ],
                 "region": "eu-west-2",
                 "title": "EFS Storage"
@@ -171,7 +171,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/EFS", "TotalIOBytes", "FileSystemId", "${aws_efs_file_system.website.id}" ]
+                    [ "AWS/EFS", "TotalIOBytes", "FileSystemId", "${var.website_efs_id}" ]
                 ],
                 "region": "eu-west-2",
                 "title": "EFS Total IO"
@@ -180,4 +180,11 @@ resource "aws_cloudwatch_dashboard" "app" {
     ]
 }
 EOF
+}
+
+resource "aws_s3_bucket_object" "cloudwatch_agent_config" {
+    bucket  = var.deployment_s3_bucket
+    key     = "${var.service}/cloudwatch/cloudwatch-agent-config.json"
+    source  = "${path.module}/cloudwatch-agent-config.json"
+    etag    = filemd5("${path.module}/cloudwatch-agent-config.json")
 }
