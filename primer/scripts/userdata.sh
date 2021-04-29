@@ -54,6 +54,10 @@ Disallow: /" >> robots.txt
     echo "<?php phpinfo() ?>" >> phpinfo.php
 fi
 
+if [[ "${environment}" == "dev" ]]; then
+    sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/plugins/template-list.php /var/www/html/wp-content/uploads/templates.php
+fi
+
 # Apache config and unset upgrade to HTTP/2
 sudo echo "# file: /etc/httpd/conf.d/wordpress.conf
 <VirtualHost *:80>
@@ -127,9 +131,15 @@ sudo chown apache:apache /var/www -R
 find /var/www -type d -exec chmod 775 {} \;
 find /var/www -type f -exec chmod 664 {} \;
 
-# Download TNA theme
+# Download TNA theme and licensed plugins
 mkdir /home/ec2-user/themes
 curl -H "Authorization: token ${github_token}" -L https://github.com/nationalarchives/tna/archive/master.zip > /home/ec2-user/themes/tna.zip
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/plugins/acf-flexible-content.zip ~/plugins/acf-flexible-content.zip
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/plugins/acf-options-page.zip ~/plugins/acf-options-page.zip
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/plugins/acf-repeater.zip ~/plugins/acf-repeater.zip
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/plugins/advanced-custom-fields-code-area-field.zip ~/plugins/advanced-custom-fields-code-area-field.zip
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/plugins/post-tags-and-categories-for-pages.zip ~/plugins/post-tags-and-categories-for-pages.zip
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/plugins/wds-active-plugin-data.zip ~/plugins/wds-active-plugin-data.zip
 
 # Install themes
 /usr/local/bin/wp theme install /home/ec2-user/themes/tna.zip --force --allow-root 2>/var/www/html/wp-cli.log
@@ -184,15 +194,15 @@ curl -H "Authorization: token ${github_token}" -L https://github.com/nationalarc
 /usr/local/bin/wp plugin install wordpress-importer --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install wp-smtp --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install wp-super-cache --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp plugin install ~/plugins/acf-flexible-content.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp plugin install ~/plugins/acf-options-page.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp plugin install ~/plugins/acf-repeater.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp plugin install ~/plugins/advanced-custom-fields-code-area-field.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp plugin install ~/plugins/post-tags-and-categories-for-pages.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp plugin install ~/plugins/wds-active-plugin-data.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-editorial-review/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-wp-aws/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-password-message/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install https://cdn.nationalarchives.gov.uk/wp-plugins/acf-flexible-content.zip --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install https://cdn.nationalarchives.gov.uk/wp-plugins/acf-options-page.zip --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install https://cdn.nationalarchives.gov.uk/wp-plugins/acf-repeater.zip --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install https://cdn.nationalarchives.gov.uk/wp-plugins/advanced-custom-fields-code-area-field.zip --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install https://cdn.nationalarchives.gov.uk/wp-plugins/post-tags-and-categories-for-pages.zip --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install https://cdn.nationalarchives.gov.uk/wp-plugins/wds-active-plugin-data.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-profile-page/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-forms/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-newsletter/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
