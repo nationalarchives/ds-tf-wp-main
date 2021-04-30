@@ -94,11 +94,10 @@ resource "aws_cloudwatch_dashboard" "app" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "CWAgent", "mem_used_percent", "host", "${var.website_lb_target_fqdns[0]}" ],
-                    [ "CWAgent", "mem_used_percent", "host", "${var.website_lb_target_fqdns[1]}" ]
+                    [ { "expression": "SEARCH(' {CWAgent, InstanceId} MetricName=\"mem_used_percent\" ', 'Average', 300)", "label": "MemoryUsedPercent", "id": "e1" } ]
                 ],
                 "region": "eu-west-2",
-                "title": "web server memory"
+                "title": "Instance memory used"
             }
         },
         {
