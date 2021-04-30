@@ -97,7 +97,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                     [ { "expression": "SEARCH(' {CWAgent, InstanceId} MetricName=\"mem_used_percent\" ', 'Average', 300)", "label": "MemoryUsedPercent", "id": "e1" } ]
                 ],
                 "region": "eu-west-2",
-                "title": "Intance memory used"
+                "title": "Instance memory used"
             }
         },
         {
