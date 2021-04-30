@@ -63,5 +63,3 @@ variable "efs_backup_delete_after" {}
 variable "efs_backup_kms_key_arn" {}
 
 variable "deployment_s3_bucket" {}
-
-variable "lb_target_fqdns" {}
