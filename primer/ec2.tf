@@ -31,6 +31,7 @@ data "template_file" "ec2_user_data" {
     template = file("${path.module}/scripts/userdata.sh")
 
     vars = {
+        service              = var.service
         environment          = var.environment
         github_token         = var.github_token
         db_host              = "db.${var.service}wp.${var.environment}.local"
