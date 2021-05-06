@@ -73,7 +73,7 @@ resource "aws_security_group_rule" "rp_http_ingress" {
     protocol          = "tcp"
     security_group_id = aws_security_group.rp.id
     type              = "ingress"
-    source_security_group_id = var.website_public_access_sg_id
+    source_security_group_id = aws_security_group.rp_lb.id
 }
 
 resource "aws_security_group_rule" "rp_ssh_ingress" {
@@ -82,7 +82,7 @@ resource "aws_security_group_rule" "rp_ssh_ingress" {
     protocol          = "tcp"
     security_group_id = aws_security_group.rp.id
     type              = "ingress"
-    source_security_group_id = var.website_public_access_sg_id
+    source_security_group_id = aws_security_group.rp_lb.id
 }
 
 resource "aws_security_group_rule" "rp_egress" {
