@@ -1,4 +1,4 @@
-output "website_public_sg_id" {
+output "website_lb_sg_id" {
     value = aws_security_group.website_lb_app.id
 }
 
