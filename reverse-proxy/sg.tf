@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 resource "aws_security_group" "rp_lb" {
     name        = "${var.service}-reverse-proxy-${var.environment}-lb-sg"
-    description = "WordPress Security Group HTTP and HTTPS access"
+    description = "Reverse Proxy Security Group HTTP and HTTPS access"
     vpc_id      = var.vpc_id
 
     tags = {
