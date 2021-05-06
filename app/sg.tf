@@ -20,7 +20,7 @@ resource "aws_security_group" "website_lb_app" {
 resource "aws_security_group_rule" "lb_app_http_ingress" {
     from_port         = 80
     protocol          = "tcp"
-    security_group_id = aws_security_group.website_app.id
+    security_group_id = aws_security_group.website_lb_app.id
     to_port           = 80
     type              = "ingress"
     cidr_blocks       = [
@@ -28,7 +28,7 @@ resource "aws_security_group_rule" "lb_app_http_ingress" {
 }
 
 resource "aws_security_group_rule" "lb_app_http_egress" {
-    security_group_id = aws_security_group.website_app.id
+    security_group_id = aws_security_group.website_lb_app.id
     type              = "egress"
     from_port         = 0
     to_port           = 0
@@ -40,7 +40,7 @@ resource "aws_security_group_rule" "lb_app_http_egress" {
 resource "aws_security_group_rule" "lb_app_https_ingress" {
     from_port         = 443
     protocol          = "tcp"
-    security_group_id = aws_security_group.website_app.id
+    security_group_id = aws_security_group.website_lb_app.id
     to_port           = 443
     type              = "ingress"
     cidr_blocks       = [
