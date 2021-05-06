@@ -7,7 +7,7 @@ resource "aws_lb" "rp_public" {
     load_balancer_type = "application"
 
     security_groups = [
-        aws_security_group.rp_lb]
+        aws_security_group.rp_lb.id]
 
     subnets = [
         var.public_subnet_a_id,
