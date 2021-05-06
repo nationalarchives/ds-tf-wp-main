@@ -32,8 +32,6 @@ variable "patch_group_name" {}
 
 variable "website_efs_sg_id" {}
 
-variable "website_public_access_sg_id" {}
-
 variable "public_ssl_cert_arn" {}
 
 variable "ami_id" {}
