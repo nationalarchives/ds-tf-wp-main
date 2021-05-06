@@ -1,13 +1,13 @@
 # -----------------------------------------------------------------------------
-# Security Group public access (load balancer)
+# Security Group app access (load balancer)
 # -----------------------------------------------------------------------------
-resource "aws_security_group" "website_public" {
-    name        = "${var.service}-wp-${var.environment}-public-sg"
+resource "aws_security_group" "website_lb_app" {
+    name        = "${var.service}-wp-${var.environment}-lb-app-sg"
     description = "WordPress Security Group HTTP and HTTPS access"
     vpc_id      = var.vpc_id
 
     tags = {
-        Name        = "${var.service}-wp-${var.environment}-public-sg"
+        Name        = "${var.service}-wp-${var.environment}-lb-app-sg"
         Service     = var.service
         Environment = var.environment
         CostCentre  = var.cost_centre
@@ -17,18 +17,18 @@ resource "aws_security_group" "website_public" {
     }
 }
 
-resource "aws_security_group_rule" "public_http_ingress" {
+resource "aws_security_group_rule" "lb_app_http_ingress" {
     from_port         = 80
     protocol          = "tcp"
-    security_group_id = aws_security_group.website_public.id
+    security_group_id = aws_security_group.website_lb_app.id
     to_port           = 80
     type              = "ingress"
     cidr_blocks       = [
         var.everyone]
 }
 
-resource "aws_security_group_rule" "public_http_egress" {
-    security_group_id = aws_security_group.website_public.id
+resource "aws_security_group_rule" "lb_app_http_egress" {
+    security_group_id = aws_security_group.website_lb_app.id
     type              = "egress"
     from_port         = 0
     to_port           = 0
@@ -37,10 +37,10 @@ resource "aws_security_group_rule" "public_http_egress" {
         var.everyone]
 }
 
-resource "aws_security_group_rule" "public_https_ingress" {
+resource "aws_security_group_rule" "lb_app_https_ingress" {
     from_port         = 443
     protocol          = "tcp"
-    security_group_id = aws_security_group.website_public.id
+    security_group_id = aws_security_group.website_lb_app.id
     to_port           = 443
     type              = "ingress"
     cidr_blocks       = [
@@ -72,7 +72,7 @@ resource "aws_security_group_rule" "app_http_ingress" {
     security_group_id        = aws_security_group.website_app.id
     to_port                  = 80
     type                     = "ingress"
-    source_security_group_id = aws_security_group.website_public.id
+    source_security_group_id = aws_security_group.website_lb_app.id
 }
 
 resource "aws_security_group_rule" "app_http_egress" {
@@ -91,7 +91,7 @@ resource "aws_security_group_rule" "app_https_ingress" {
     security_group_id        = aws_security_group.website_app.id
     to_port                  = 443
     type                     = "ingress"
-    source_security_group_id = aws_security_group.website_public.id
+    source_security_group_id = aws_security_group.website_lb_app.id
 }
 
 # -----------------------------------------------------------------------------
