@@ -7,7 +7,7 @@ resource "aws_security_group" "website_lb_app" {
     vpc_id      = var.vpc_id
 
     tags = {
-        Name        = "${var.service}-wp-${var.environment}-public-sg"
+        Name        = "${var.service}-wp-${var.environment}-lb-app-sg"
         Service     = var.service
         Environment = var.environment
         CostCentre  = var.cost_centre
