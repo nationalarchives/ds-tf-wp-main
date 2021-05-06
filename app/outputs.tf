@@ -1,5 +1,5 @@
 output "website_public_sg_id" {
-    value = aws_security_group.website_public.id
+    value = aws_security_group.website_lb_app.id
 }
 
 output "website_app_sg_id" {
