@@ -30,8 +30,6 @@ variable "asg_health_check_type" {}
 
 variable "patch_group_name" {}
 
-variable "website_efs_sg_id" {}
-
 variable "public_ssl_cert_arn" {}
 
 variable "ami_id" {}

@@ -21,7 +21,7 @@ resource "aws_efs_mount_target" "rp_efs_private_a" {
     subnet_id      = var.private_subnet_a_id
 
     security_groups = [
-        var.website_efs_sg_id]
+        aws_security_group.rp_efs.id]
 }
 
 resource "aws_efs_mount_target" "rp_efs_private_b" {
@@ -29,7 +29,7 @@ resource "aws_efs_mount_target" "rp_efs_private_b" {
     subnet_id      = var.private_subnet_b_id
 
     security_groups = [
-        var.website_efs_sg_id]
+        aws_security_group.rp_efs.id]
 }
 
 resource "aws_backup_selection" "efs_backup" {
