@@ -29,3 +29,5 @@ variable "cloudwatch_metric_alarm_threshold" {}
 variable "website_autoscaling_group_name" {}
 
 variable "website_autoscaling_policy_arn" {}
+
+variable "sns_topic_arn" {}
