@@ -33,3 +33,7 @@ output "efs_mount_target" {
 output "efs_mount_dr" {
     value = var.efs_mount_dir
 }
+
+output "website_autoscaling_group_name" {
+    value = aws_autoscaling_group.website.name
+}
