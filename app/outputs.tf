@@ -22,6 +22,10 @@ output "website_public_lb_arn_suffix" {
     value = aws_lb.website_public.arn_suffix
 }
 
+output "website_public_lb_target_group_arn_suffix" {
+    value = aws_lb_target_group.website_public.arn_suffix
+}
+
 output "efs_id" {
     value = aws_efs_file_system.website.id
 }
