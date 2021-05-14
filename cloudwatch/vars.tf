@@ -15,5 +15,3 @@ variable "website_main_rds_identifier" {}
 variable "website_efs_id" {}
 
 variable "deployment_s3_bucket" {}
-
-variable "cloudwatch_metric_alarms" {}
