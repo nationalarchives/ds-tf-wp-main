@@ -20,8 +20,8 @@ resource "aws_route53_record" "domain_name" {
     type    = "A"
 
     alias {
-        name                   = var.website_public_lb_dns_name
-        zone_id                = var.website_public_lb_zone_id
+        name                   = aws_lb.rp_public.dns_name
+        zone_id                = aws_lb.rp_public.zone_id
         evaluate_target_health = true
     }
 }
@@ -32,8 +32,8 @@ resource "aws_route53_record" "sub_domain_names" {
     type    = "A"
 
     alias {
-        name                   = var.website_public_lb_dns_name
-        zone_id                = var.website_public_lb_zone_id
+        name                   = aws_lb.rp_public.dns_name
+        zone_id                = aws_lb.rp_public.zone_id
         evaluate_target_health = true
     }
 }

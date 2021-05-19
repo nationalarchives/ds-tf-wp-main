@@ -68,9 +68,23 @@ resource "aws_lb_listener" "public_https_lb_listener" {
         target_group_arn = aws_lb_target_group.rp_public.arn
         type             = "forward"
     }
+
     protocol          = "HTTPS"
     load_balancer_arn = aws_lb.rp_public.arn
     port              = 443
     certificate_arn   = var.public_ssl_cert_arn
+    ssl_policy        = "ELBSecurityPolicy-FS-1-2-Res-2019-08"
+}
+
+resource "aws_lb_listener" "restricted_access_https_lb_listener" {
+    default_action {
+        target_group_arn = aws_lb_target_group.rp_public.arn
+        type             = "forward"
+    }
+
+    protocol          = "HTTPS"
+    load_balancer_arn = aws_lb.rp_public.arn
+    port              = 443
+    certificate_arn   = var.sub_sub_domain_ssl_cert_arn
     ssl_policy        = "ELBSecurityPolicy-FS-1-2-Res-2019-08"
 }
