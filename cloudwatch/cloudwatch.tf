@@ -34,7 +34,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/ApplicationELB", "ActiveConnectionCount", "LoadBalancer", "${var.website_public_lb_arn_suffix}" ],
+                    [ "AWS/ApplicationELB", "ActiveConnectionCount", "LoadBalancer", "${var.website_internal_lb_arn_suffix}" ],
                     [ ".", "RequestCount", ".", "." ]
                 ],
                 "region": "eu-west-2",
@@ -51,7 +51,7 @@ resource "aws_cloudwatch_dashboard" "app" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/ApplicationELB", "HTTPCode_Target_5XX_Count", "LoadBalancer", "${var.website_public_lb_arn_suffix}" ],
+                    [ "AWS/ApplicationELB", "HTTPCode_Target_5XX_Count", "LoadBalancer", "${var.website_internal_lb_arn_suffix}" ],
                     [ ".", "HTTPCode_Target_2XX_Count", ".", "." ]
                 ],
                 "region": "eu-west-2",

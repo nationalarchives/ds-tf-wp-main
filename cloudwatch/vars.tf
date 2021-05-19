@@ -8,7 +8,7 @@ variable "owner" {}
 
 variable "created_by" {}
 
-variable "website_public_lb_arn_suffix" {}
+variable "website_internal_lb_arn_suffix" {}
 
 variable "website_main_rds_identifier" {}
 
