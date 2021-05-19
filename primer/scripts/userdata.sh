@@ -99,13 +99,13 @@ wp core download --allow-root
 /** Detect if SSL is used. This is required since we are terminating SSL either on CloudFront or on ELB */
 if ((\$_SERVER['HTTP_CLOUDFRONT_FORWARDED_PROTO'] == 'https') OR (\$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
     {\$_SERVER['HTTPS']='on';}
-define( 'WP_SITEURL', 'https://${domain}' );
-define( 'WP_HOME', 'https://${domain}' );
+define( 'WP_SITEURL', 'http://'.\$_SERVER['HTTP_HOST'] );
+define( 'WP_HOME', 'http://'.\$_SERVER['HTTP_HOST'] );
 define( 'TNA_CLOUD', false );
 define( 'WP_ALLOW_MULTISITE', true );
 define( 'MULTISITE', true );
 define( 'SUBDOMAIN_INSTALL', true );
-define( 'DOMAIN_CURRENT_SITE', '${domain}' );
+define( 'DOMAIN_CURRENT_SITE', \$_SERVER['HTTP_HOST'] );
 define( 'PATH_CURRENT_SITE', '/' );
 define( 'SITE_ID_CURRENT_SITE', 1 );
 define( 'BLOG_ID_CURRENT_SITE', 1 );
