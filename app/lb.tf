@@ -25,7 +25,7 @@ resource "aws_lb" "website_internal" {
 }
 
 resource "aws_lb_target_group" "website_internal" {
-    name     = "${var.service}-wp-${var.environment}-lb-internal-target"
+    name     = "${var.service}-wp-${var.environment}-internal"
     port     = 80
     protocol = "HTTP"
     vpc_id   = var.vpc_id
