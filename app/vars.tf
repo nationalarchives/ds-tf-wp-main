@@ -18,6 +18,8 @@ variable "private_subnet_a_id" {}
 
 variable "private_subnet_b_id" {}
 
+variable "route53_local_zone_id" {}
+
 variable "reverse_proxy_app_sg_id" {}
 
 variable "patch_group_name" {}
