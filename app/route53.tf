@@ -12,7 +12,7 @@ resource "aws_route53_record" "app" {
     ]
 }
 
-resource "aws_route53_record" "app" {
+resource "aws_route53_record" "app_wild_card" {
     zone_id = var.route53_local_zone_id
     name    = "*.${var.service}.${var.environment}.local"
     type = "CNAME"
