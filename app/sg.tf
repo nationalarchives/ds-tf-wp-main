@@ -26,6 +26,15 @@ resource "aws_security_group_rule" "app_http_ingress" {
     source_security_group_id = var.reverse_proxy_app_sg_id
 }
 
+resource "aws_security_group_rule" "http_ingress" {
+    from_port                = 80
+    protocol                 = "tcp"
+    security_group_id        = aws_security_group.website_app.id
+    to_port                  = 80
+    type                     = "ingress"
+    source_security_group_id = aws_security_group.website_app.id
+}
+
 resource "aws_security_group_rule" "app_http_egress" {
     security_group_id = aws_security_group.website_app.id
     type              = "egress"
@@ -43,6 +52,15 @@ resource "aws_security_group_rule" "app_https_ingress" {
     to_port                  = 443
     type                     = "ingress"
     source_security_group_id = var.reverse_proxy_app_sg_id
+}
+
+resource "aws_security_group_rule" "https_ingress" {
+    from_port                = 443
+    protocol                 = "tcp"
+    security_group_id        = aws_security_group.website_app.id
+    to_port                  = 443
+    type                     = "ingress"
+    source_security_group_id = aws_security_group.website_app.id
 }
 
 # -----------------------------------------------------------------------------
