@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 resource "aws_route53_record" "app" {
     zone_id = var.route53_local_zone_id
-    name    = "website.${var.environment}.local"
+    name    = "${var.service}.${var.environment}.local"
     type = "CNAME"
     ttl = 15
 
