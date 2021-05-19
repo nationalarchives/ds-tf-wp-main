@@ -48,8 +48,6 @@ variable "wp_db_username" {}
 
 variable "wp_db_password" {}
 
-variable "wp_domain_name" {}
-
 variable "everyone" {}
 
 variable "efs_backup_schedule" {}
