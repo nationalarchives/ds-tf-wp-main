@@ -96,16 +96,22 @@ wp core download --allow-root
 
 # Create WP config file
 /usr/local/bin/wp config create --dbhost=${db_host} --dbname=${db_name} --dbuser=${db_user} --dbpass="${db_pass}" --allow-root --extra-php <<PHP
-/** Detect if SSL is used. This is required since we are terminating SSL either on CloudFront or on ELB */
-if ((\$_SERVER['HTTP_CLOUDFRONT_FORWARDED_PROTO'] == 'https') OR (\$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
-    {\$_SERVER['HTTPS']='on';}
-define( 'WP_SITEURL', 'http://'.\$_SERVER['HTTP_HOST'] );
-define( 'WP_HOME', 'http://'.\$_SERVER['HTTP_HOST'] );
-define( 'TNA_CLOUD', false );
+/* Turn HTTPS 'on' if HTTP_X_FORWARDED_PROTO matches 'https' */
+if (strpos(\$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
+    \$_SERVER['HTTPS'] = 'on';
+}
+define( 'FORCE_SSL_ADMIN', false );
+define( 'ADMIN_COOKIE_PATH', '/' );
+define( 'COOKIEPATH', '/' );
+define( 'SITECOOKIEPATH', '/' );
+define( 'COOKIE_DOMAIN', 'nationalarchives.gov.uk' );
+define( 'TEST_COOKIE', 'test_cookie' );
+define( 'WP_SITEURL', 'http://${domain}' ] );
+define( 'WP_HOME', 'http://${domain}'] );
 define( 'WP_ALLOW_MULTISITE', true );
 define( 'MULTISITE', true );
 define( 'SUBDOMAIN_INSTALL', true );
-define( 'DOMAIN_CURRENT_SITE', \$_SERVER['HTTP_HOST'] );
+define( 'DOMAIN_CURRENT_SITE', '${domain}' );
 define( 'PATH_CURRENT_SITE', '/' );
 define( 'SITE_ID_CURRENT_SITE', 1 );
 define( 'BLOG_ID_CURRENT_SITE', 1 );
@@ -122,6 +128,9 @@ define( 'SMTP_SES_FROM_NAME', '${ses_from_name}' );
 @ini_set( 'upload_max_size' , '64M' );
 @ini_set( 'post_max_size', '128M');
 @ini_set( 'memory_limit', '256M' );
+
+setcookie(TEST_COOKIE, 'WP Cookie check', 0, COOKIEPATH, COOKIE_DOMAIN);
+if ( SITECOOKIEPATH != COOKIEPATH ) setcookie(TEST_COOKIE, 'WP Cookie check', 0, SITECOOKIEPATH, COOKIE_DOMAIN);
 PHP
 
 # Reset .htaccess
@@ -180,11 +189,7 @@ sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/plugins/wds-active-plugin
 /usr/local/bin/wp theme install https://github.com/nationalarchives/tna-child-portals/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 
 # Install plugins
-/usr/local/bin/wp plugin install amazon-s3-and-cloudfront --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install wordpress-seo --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install wp-mail-smtp --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install jquery-colorbox --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install simple-footnotes --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install advanced-custom-fields --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install classic-editor --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install cms-tree-page-view --force --allow-root 2>/var/www/html/wp-cli.log
@@ -192,7 +197,6 @@ sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/plugins/wds-active-plugin
 /usr/local/bin/wp plugin install tinymce-advanced --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install transients-manager --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install wordpress-importer --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install wp-smtp --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install wp-super-cache --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install ~/plugins/acf-flexible-content.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install ~/plugins/acf-options-page.zip --force --allow-root 2>/var/www/html/wp-cli.log
@@ -201,12 +205,12 @@ sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/plugins/wds-active-plugin
 /usr/local/bin/wp plugin install ~/plugins/post-tags-and-categories-for-pages.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install ~/plugins/wds-active-plugin-data.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-editorial-review/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
-/usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-wp-aws/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-password-message/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-profile-page/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-forms/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/tna-newsletter/archive/master.zip --force --allow-root 2>/var/www/html/wp-cli.log
 /usr/local/bin/wp plugin install https://github.com/nationalarchives/ds-tna-wp-ses/archive/refs/heads/main.zip --force --allow-root 2>/var/www/html/wp-cli.log
+/usr/local/bin/wp plugin install https://github.com/nationalarchives/ds-tna-wp-aws/archive/refs/heads/main.zip --force --allow-root 2>/var/www/html/wp-cli.log
 
 # Rename TNA theme dir
 sudo mv /var/www/html/wp-content/themes/tna-master /var/www/html/wp-content/themes/tna
