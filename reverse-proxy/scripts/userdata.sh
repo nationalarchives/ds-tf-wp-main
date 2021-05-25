@@ -22,8 +22,10 @@ sudo amazon-linux-extras install -y nginx1
 
 sudo systemctl enable --now nginx
 
-# Copy configuration file
-sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/${nginx_conf_s3_key} /etc/nginx/nginx.conf
+# Copy configuration files
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/${nginx_conf_s3_key}/nginx.conf /etc/nginx/nginx.conf
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/${nginx_conf_s3_key}/wp_admin.conf /etc/nginx/wp_admin.conf
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/${nginx_conf_s3_key}/wp_admin_subdomain.conf /etc/nginx/wp_admin_subdomain.conf
 
 # Restart nginx to reload new config file
 sudo systemctl restart nginx
