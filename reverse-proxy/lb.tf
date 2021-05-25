@@ -7,7 +7,7 @@ resource "aws_lb" "rp_public" {
     load_balancer_type = "application"
 
     security_groups = [
-        var.website_public_access_sg_id]
+        aws_security_group.rp_lb.id]
 
     subnets = [
         var.public_subnet_a_id,
@@ -68,9 +68,19 @@ resource "aws_lb_listener" "public_https_lb_listener" {
         target_group_arn = aws_lb_target_group.rp_public.arn
         type             = "forward"
     }
+
     protocol          = "HTTPS"
     load_balancer_arn = aws_lb.rp_public.arn
     port              = 443
-    certificate_arn   = var.public_ssl_cert_arn
     ssl_policy        = "ELBSecurityPolicy-FS-1-2-Res-2019-08"
+}
+
+resource "aws_lb_listener_certificate" "sub_domain" {
+  listener_arn    = aws_lb_listener.public_https_lb_listener.arn
+  certificate_arn = var.public_ssl_cert_arn
+}
+
+resource "aws_lb_listener_certificate" "sub_sub_domain" {
+  listener_arn    = aws_lb_listener.public_https_lb_listener.arn
+  certificate_arn = var.sub_sub_domain_ssl_cert_arn
 }

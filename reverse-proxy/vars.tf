@@ -30,11 +30,9 @@ variable "asg_health_check_type" {}
 
 variable "patch_group_name" {}
 
-variable "website_efs_sg_id" {}
-
-variable "website_public_access_sg_id" {}
-
 variable "public_ssl_cert_arn" {}
+
+variable "sub_sub_domain_ssl_cert_arn" {}
 
 variable "ami_id" {}
 
@@ -51,10 +49,6 @@ variable "nginx_conf_s3_key" {}
 variable "int_domain_name" {}
 
 variable "public_domain_name" {}
-
-variable "website_public_lb_dns_name" {}
-
-variable "website_public_lb_zone_id" {}
 
 variable "everyone" {}
 

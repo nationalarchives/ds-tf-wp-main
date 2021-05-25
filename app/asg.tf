@@ -33,5 +33,5 @@ resource "aws_autoscaling_group" "website" {
 
 resource "aws_autoscaling_attachment" "website" {
     autoscaling_group_name = aws_autoscaling_group.website.id
-    alb_target_group_arn   = aws_lb_target_group.website_public.arn
+    alb_target_group_arn   = aws_lb_target_group.website_internal.arn
 }

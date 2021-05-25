@@ -1,7 +1,3 @@
-output "website_public_sg_id" {
-    value = aws_security_group.website_public.id
-}
-
 output "website_app_sg_id" {
     value = aws_security_group.website_app.id
 }
@@ -10,16 +6,20 @@ output "website_efs_sg_id" {
     value = aws_security_group.website_efs.id
 }
 
-output "website_public_lb_dns_name" {
-    value = aws_lb.website_public.dns_name
+output "website_internal_lb_dns_name" {
+    value = aws_lb.website_internal.dns_name
 }
 
-output "website_public_lb_zone_id" {
-    value = aws_lb.website_public.zone_id
+output "website_internal_lb_zone_id" {
+    value = aws_lb.website_internal.zone_id
 }
 
-output "website_public_lb_arn_suffix" {
-    value = aws_lb.website_public.arn_suffix
+output "website_internal_lb_arn_suffix" {
+    value = aws_lb.website_internal.arn_suffix
+}
+
+output "website_internal_lb_target_group_arn_suffix" {
+    value = aws_lb_target_group.website_internal.arn_suffix
 }
 
 output "efs_id" {
@@ -32,4 +32,8 @@ output "efs_mount_target" {
 
 output "efs_mount_dr" {
     value = var.efs_mount_dir
+}
+
+output "website_autoscaling_group_name" {
+    value = aws_autoscaling_group.website.name
 }
