@@ -3,23 +3,36 @@
 # Update yum
 sudo yum update -y
 
-# Install LAMP Web Server on Amazon Linux 2
-sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
-sudo yum install -y httpd mariadb-server
+# Install apache
+sudo yum install -y httpd httpd-tools mod_ssl
+sudo systemctl enable httpd
 sudo systemctl start httpd
 
-# Install additional PHP repos
-sudo yum install -y php-simplexml
-sudo yum install -y php72-gd
-sudo yum install -y php-pecl-imagick
-sudo yum install -y php-mbstring
+# Install php 7.4
+sudo amazon-linux-extras enable php7.4
+sudo yum clean metadata
+sudo yum install php php-common php-pear -y
+sudo yum install php-{cli,cgi,curl,mbstring,gd,mysqlnd,gettext,json,xml,fpm,intl,zip,simplexml,gd} -y
+
+# Install mysql5.7
+sudo rpm -Uvh https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+sudo yum install mysql-community-server -y
+sudo systemctl enable mysqld
+sudo systemctl start mysqld
+
+# Install ImageMagick
+sudo yum -y install php-devel gcc ImageMagick ImageMagick-devel
+sudo bash -c "yes '' | pecl install -f imagick"
+sudo bash -c "echo 'extension=imagick.so' > /etc/php.d/imagick.ini"
 
 sudo systemctl restart php-fpm.service
 sudo systemctl restart httpd.service
-sudo systemctl enable httpd
 
 # Install NFS packages
-sudo apt install -y nfs-common
+sudo yum install -y amazon-efs-utils
+sudo yum install -y nfs-utils
+sudo service nfs start
+sudo service nfs status
 
 # Install Cloudwatch agent
 sudo yum install amazon-cloudwatch-agent -y
@@ -97,7 +110,7 @@ wp core download --allow-root
 # Create WP config file
 /usr/local/bin/wp config create --dbhost=${db_host} --dbname=${db_name} --dbuser=${db_user} --dbpass="${db_pass}" --allow-root --extra-php <<PHP
 /* Turn HTTPS 'on' if HTTP_X_FORWARDED_PROTO matches 'https' */
-if (strpos(\$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
+if (isset(\$_SERVER['HTTP_X_FORWARDED_PROTO']) &&  strpos(\$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
     \$_SERVER['HTTPS'] = 'on';
 }
 define( 'FORCE_SSL_ADMIN', false );
@@ -106,8 +119,8 @@ define( 'COOKIEPATH', '/' );
 define( 'SITECOOKIEPATH', '/' );
 define( 'COOKIE_DOMAIN', 'nationalarchives.gov.uk' );
 define( 'TEST_COOKIE', 'test_cookie' );
-define( 'WP_SITEURL', 'http://${domain}' ] );
-define( 'WP_HOME', 'http://${domain}'] );
+define( 'WP_SITEURL', 'http://${domain}' );
+define( 'WP_HOME', 'http://${domain}' );
 define( 'WP_ALLOW_MULTISITE', true );
 define( 'MULTISITE', true );
 define( 'SUBDOMAIN_INSTALL', true );
