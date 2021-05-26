@@ -2,7 +2,7 @@
 # Internal domain name
 # -----------------------------------------------------------------------------
 resource "aws_route53_zone" "internal" {
-    name = var.int_domain_name
+    name = var.editorial_domain_name
 
     tags = {
         Service         = var.service
@@ -16,7 +16,7 @@ resource "aws_route53_zone" "internal" {
 
 resource "aws_route53_record" "domain_name" {
     zone_id = aws_route53_zone.internal.zone_id
-    name    = var.int_domain_name
+    name    = var.editorial_domain_name
     type    = "A"
 
     alias {
@@ -28,7 +28,7 @@ resource "aws_route53_record" "domain_name" {
 
 resource "aws_route53_record" "sub_domain_names" {
     zone_id = aws_route53_zone.internal.zone_id
-    name    = "*.${var.int_domain_name}"
+    name    = "*.${var.editorial_domain_name}"
     type    = "A"
 
     alias {
@@ -40,7 +40,7 @@ resource "aws_route53_record" "sub_domain_names" {
 
 resource "aws_route53_record" "acme_challenge_record" {
     zone_id = aws_route53_zone.internal.zone_id
-    name    = "_acme-challenge.${var.int_domain_name}"
+    name    = "_acme-challenge.${var.editorial_domain_name}"
     type    = "TXT"
     ttl     = "300"
     records = [
