@@ -110,7 +110,7 @@ wp core download --allow-root
 # Create WP config file
 /usr/local/bin/wp config create --dbhost=${db_host} --dbname=${db_name} --dbuser=${db_user} --dbpass="${db_pass}" --allow-root --extra-php <<PHP
 /* Turn HTTPS 'on' if HTTP_X_FORWARDED_PROTO matches 'https' */
-if (strpos(\$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
+if (isset(\$_SERVER['HTTP_X_FORWARDED_PROTO']) &&  strpos(\$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
     \$_SERVER['HTTPS'] = 'on';
 }
 define( 'FORCE_SSL_ADMIN', false );
@@ -119,8 +119,8 @@ define( 'COOKIEPATH', '/' );
 define( 'SITECOOKIEPATH', '/' );
 define( 'COOKIE_DOMAIN', 'nationalarchives.gov.uk' );
 define( 'TEST_COOKIE', 'test_cookie' );
-define( 'WP_SITEURL', 'http://${domain}' ] );
-define( 'WP_HOME', 'http://${domain}'] );
+define( 'WP_SITEURL', 'http://${domain}' );
+define( 'WP_HOME', 'http://${domain}' );
 define( 'WP_ALLOW_MULTISITE', true );
 define( 'MULTISITE', true );
 define( 'SUBDOMAIN_INSTALL', true );
