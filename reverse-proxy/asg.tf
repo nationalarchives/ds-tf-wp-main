@@ -16,6 +16,13 @@ resource "aws_autoscaling_group" "rp" {
     health_check_grace_period = var.asg_health_check_grace_period
     health_check_type         = var.asg_health_check_type
 
+    lifecycle {
+        create_before_destroy = true
+        ignore_changes        = [
+            load_balancers,
+            target_group_arns]
+    }
+
     tags = tolist([
         tomap({
             "key"                 = "Name",
