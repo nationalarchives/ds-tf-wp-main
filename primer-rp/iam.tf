@@ -27,7 +27,7 @@ resource "aws_iam_policy" "rp_deployment_s3" {
     policy = var.instance_role_policy
 }
 
-resource "aws_iam_role_policy_attachment" "wp_deployment_s3_policy" {
+resource "aws_iam_role_policy_attachment" "rp_deployment_s3_policy" {
     policy_arn = aws_iam_policy.rp_deployment_s3.arn
     role       = aws_iam_role.primer_rp.id
 }
