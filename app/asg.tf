@@ -16,6 +16,16 @@ resource "aws_autoscaling_group" "website" {
     health_check_grace_period = var.asg_health_check_grace_period
     health_check_type         = var.asg_health_check_type
 
+    enabled_metrics = [
+        "GroupMinSize",
+        "GroupMaxSize",
+        "GroupDesiredCapacity",
+        "GroupInServiceInstances",
+        "GroupTotalInstances"
+    ]
+
+    metrics_granularity = "1Minute"
+
     lifecycle {
         create_before_destroy = true
         ignore_changes        = [
@@ -60,4 +70,20 @@ resource "aws_autoscaling_group" "website" {
 resource "aws_autoscaling_attachment" "website" {
     autoscaling_group_name = aws_autoscaling_group.website.id
     alb_target_group_arn   = aws_lb_target_group.website_internal.arn
+}
+
+resource "aws_autoscaling_policy" "website_up_policy" {
+    name                   = "${var.service}-${var.environment}-up-policy"
+    scaling_adjustment     = 1
+    adjustment_type        = "ChangeInCapacity"
+    cooldown               = 300
+    autoscaling_group_name = aws_autoscaling_group.website.name
+}
+
+resource "aws_autoscaling_policy" "website_down_policy" {
+    name                   = "${var.service}-${var.environment}-down-policy"
+    scaling_adjustment     = -1
+    adjustment_type        = "ChangeInCapacity"
+    cooldown               = 300
+    autoscaling_group_name = aws_autoscaling_group.website.name
 }
