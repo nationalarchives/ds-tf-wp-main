@@ -38,10 +38,10 @@ output "website_autoscaling_group_name" {
     value = aws_autoscaling_group.website.name
 }
 
-output "website_autoscaling_group_up_policy" {
+output "website_autoscaling_up_policy_arn" {
     value = aws_autoscaling_policy.website_up_policy.arn
 }
 
-output "website_autoscaling_group_down_policy" {
+output "website_autoscaling_down_policy_arn" {
     value = aws_autoscaling_policy.website_down_policy.arn
 }
