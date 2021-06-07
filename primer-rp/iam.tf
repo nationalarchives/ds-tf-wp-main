@@ -32,7 +32,7 @@ resource "aws_iam_role_policy_attachment" "wp_deployment_s3_policy" {
     role       = aws_iam_role.primer_rp.id
 }
 
-resource "aws_iam_instance_profile" "primer" {
+resource "aws_iam_instance_profile" "primer_rp_profile" {
     name = var.instance_profile
     path = "/"
     role = aws_iam_role.primer_rp.name
