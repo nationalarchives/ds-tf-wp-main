@@ -14,7 +14,7 @@ resource "aws_instance" "rp_primer" {
         encrypted   = true
     }
 
-    user_data            = data.template_file.ec2_user_data.rendered
+    user_data = var.user_data
 
     tags = merge(var.tags, {
         Name = var.instance_name

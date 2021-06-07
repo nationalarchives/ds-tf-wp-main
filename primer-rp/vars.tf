@@ -12,6 +12,7 @@ variable "subnet_id" {}
 variable "volume_size" {}
 variable "tags" {}
 variable "sg_id" {}
+variable "user_data" {}
 variable "instance_type" {
     default = "t3a.medium"
 }
