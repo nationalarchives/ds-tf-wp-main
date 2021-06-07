@@ -37,3 +37,11 @@ output "efs_mount_dr" {
 output "website_autoscaling_group_name" {
     value = aws_autoscaling_group.website.name
 }
+
+output "website_asg_up_policy" {
+    value = aws_autoscaling_policy.website_up_policy.arn
+}
+
+output "website_asg_down_policy" {
+    value = aws_autoscaling_policy.website_down_policy.arn
+}
