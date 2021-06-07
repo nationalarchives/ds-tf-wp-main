@@ -14,10 +14,10 @@ resource "aws_ami_from_instance" "rp_ami" {
 # clean up
 # 1. remove the ami from state
 # 2. destroy instance
-resource "null_resource" "local-exec" {
+resource "null_resource" "run_terraform" {
     depends_on = [aws_ami_from_instance.rp_ami]
 
-    provisioner "run_terraform" {
+    provisioner "local-exec" {
         inline = [
             "terraform state rm aws_ami_from_instance.rp_ami",
             "terraform destroy aws_instance.rp_primer"
