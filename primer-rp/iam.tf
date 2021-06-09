@@ -24,7 +24,7 @@ resource "aws_iam_policy" "rp_deployment_s3" {
     name        = var.instance_role_policy_name
     description = "RP deployment S3 access"
 
-    policy = var.instance_role_policy
+    policy = templatefile("${path.module}/scripts/instance-role-policy.json",  { s3_deployment_bucket = var.s3_deployment_bucket,  s3_deployment_root = var.s3_deployment_root })
 }
 
 resource "aws_iam_role_policy_attachment" "rp_deployment_s3_policy" {
