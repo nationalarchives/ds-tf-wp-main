@@ -18,3 +18,10 @@ resource "aws_s3_bucket_object" "admin_subdomain_conf" {
     source  = "scripts/wp_admin_subdomain.conf"
     etag    = filemd5("scripts/wp_admin_subdomain.conf")
 }
+
+resource "aws_s3_bucket_object" "admin_ips_conf" {
+    bucket  = var.deployment_s3_bucket
+    key     = "${var.service}/${var.nginx_conf_s3_key}/admin_ips.conf"
+    source  = "scripts/admin_ips.conf"
+    etag    = filemd5("scripts/admin_ips.conf")
+}
