@@ -79,6 +79,15 @@ resource "aws_security_group_rule" "rp_vpn_ingress" {
     cidr_blocks       = var.vpn_cidr
 }
 
+resource "aws_security_group_rule" "rp_legacy_apps_ingress" {
+    from_port         = 1024
+    to_port           = 65535
+    protocol          = "tcp"
+    security_group_id = aws_security_group.rp.id
+    type              = "ingress"
+    cidr_blocks       = var.legacy_apps_cidr
+}
+
 resource "aws_security_group_rule" "rp_egress" {
     from_port         = 0
     to_port           = 0
