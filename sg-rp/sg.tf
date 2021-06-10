@@ -17,7 +17,7 @@ resource "aws_security_group_rule" "lb_http_ingress" {
     security_group_id = aws_security_group.rp_lb.id
     to_port           = 80
     type              = "ingress"
-    cidr_blocks       = var.ingress_group
+    cidr_blocks       = var.egress_group
 }
 
 resource "aws_security_group_rule" "lb_http_egress" {
@@ -26,7 +26,7 @@ resource "aws_security_group_rule" "lb_http_egress" {
     from_port         = 0
     to_port           = 0
     protocol          = "-1"
-    cidr_blocks       = var.ingress_group
+    cidr_blocks       = var.egress_group
 }
 
 resource "aws_security_group_rule" "lb_https_ingress" {
@@ -35,7 +35,7 @@ resource "aws_security_group_rule" "lb_https_ingress" {
     security_group_id = aws_security_group.rp_lb.id
     to_port           = 443
     type              = "ingress"
-    cidr_blocks       = var.ingress_group
+    cidr_blocks       = var.egress_group
 }
 
 # -----------------------------------------------------------------------------
@@ -70,13 +70,22 @@ resource "aws_security_group_rule" "rp_ssh_ingress" {
     source_security_group_id = aws_security_group.rp_lb.id
 }
 
+resource "aws_security_group_rule" "rp_vpn_ingress" {
+    from_port                = 22
+    to_port                  = 22
+    protocol                 = "tcp"
+    security_group_id        = aws_security_group.rp.id
+    type                     = "ingress"
+    source_security_group_id = aws_security_group.rp_lb.id
+}
+
 resource "aws_security_group_rule" "rp_egress" {
     from_port         = 0
     to_port           = 0
     protocol          = "-1"
     security_group_id = aws_security_group.rp.id
     type              = "egress"
-    cidr_blocks       = var.ingress_group
+    cidr_blocks       = var.egress_group
 }
 
 # -----------------------------------------------------------------------------
@@ -107,5 +116,5 @@ resource "aws_security_group_rule" "rp_efs_egress" {
     from_port         = 0
     to_port           = 0
     protocol          = "-1"
-    cidr_blocks       = var.ingress_group
+    cidr_blocks       = var.egress_group
 }
