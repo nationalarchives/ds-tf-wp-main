@@ -76,8 +76,7 @@ resource "aws_security_group_rule" "rp_egress" {
     protocol          = "-1"
     security_group_id = aws_security_group.rp.id
     type              = "egress"
-    cidr_blocks       = [
-        var.ingress_group]
+    cidr_blocks       = var.ingress_group
 }
 
 # -----------------------------------------------------------------------------
@@ -108,6 +107,5 @@ resource "aws_security_group_rule" "rp_efs_egress" {
     from_port         = 0
     to_port           = 0
     protocol          = "-1"
-    cidr_blocks       = [
-        var.ingress_group]
+    cidr_blocks       = var.ingress_group
 }
