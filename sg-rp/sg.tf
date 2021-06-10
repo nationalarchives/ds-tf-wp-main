@@ -7,7 +7,7 @@ resource "aws_security_group" "rp_lb" {
     vpc_id      = var.vpc_id
 
     tags = merge(var.tags, {
-        Name = "${var.service}-reverse-proxy-${var.environment}-lb-sg"
+        Name = "${var.service}-${var.environment}-reverse-proxy-lb-sg"
     })
 }
 
@@ -48,7 +48,7 @@ resource "aws_security_group" "rp" {
     vpc_id      = var.vpc_id
 
     tags = merge(var.tags, {
-        Name = "${var.service}-reverse-proxy-${var.environment}-sg"
+        Name = "${var.service}-${var.environment}-reverse-proxy-sg"
     })
 }
 
@@ -106,7 +106,7 @@ resource "aws_security_group" "rp_efs" {
     vpc_id      = var.vpc_id
 
     tags = merge(var.tags, {
-        Name = "${var.service}-efs-reverse-proxy-${var.environment}-sg"
+        Name = "${var.service}-${var.environment}-efs-reverse-proxy-sg"
     })
 }
 
