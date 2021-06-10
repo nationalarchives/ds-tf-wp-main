@@ -36,7 +36,11 @@ variable "wp_db_username" {}
 
 variable "wp_db_password" {}
 
-variable "wp_domain_name" {}
+variable "wp_int_siteurl" {}
+
+variable "wp_public_siteurl" {}
+
+variable "wp_editor_siteurl" {}
 
 variable "deployment_s3_bucket" {}
 
