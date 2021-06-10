@@ -2,7 +2,7 @@
 # Security Group public access (load balancer)
 # -----------------------------------------------------------------------------
 resource "aws_security_group" "rp_lb" {
-    name        = "${var.service}-reverse-proxy-${var.environment}-lb-sg"
+    name        = "${var.service}-${var.environment}-reverse-proxy-lb-sg"
     description = "Reverse Proxy Security Group HTTP and HTTPS access"
     vpc_id      = var.vpc_id
 
@@ -43,7 +43,7 @@ resource "aws_security_group_rule" "lb_https_ingress" {
 # - allowing ports 22, 53 and 80
 # -----------------------------------------------------------------------------
 resource "aws_security_group" "rp" {
-    name        = "${var.service}-reverse-proxy-${var.environment}-sg"
+    name        = "${var.service}-${var.environment}-reverse-proxy-sg"
     description = "Reverse proxy security group"
     vpc_id      = var.vpc_id
 
@@ -84,7 +84,7 @@ resource "aws_security_group_rule" "rp_egress" {
 # Security group reverse proxy EFS
 # -----------------------------------------------------------------------------
 resource "aws_security_group" "rp_efs" {
-    name        = "${var.service}-efs-reverse-proxy-${var.environment}-sg"
+    name        = "${var.service}-${var.environment}-efs-reverse-proxy-sg"
     description = "Reverse proxy EFS storage security group"
     vpc_id      = var.vpc_id
 
