@@ -75,8 +75,8 @@ fi
 sudo echo "# file: /etc/httpd/conf.d/wordpress.conf
 <VirtualHost *:80>
   Header unset Upgrade
-  ServerName ${domain}
-  ServerAlias ${domain}
+  ServerName ${int_siteurl}
+  ServerAlias ${int_siteurl}
   ServerAdmin webmaster@nationalarchives.gov.uk
   DocumentRoot /var/www/html
   <Directory "/var/www/html">
@@ -113,18 +113,19 @@ wp core download --allow-root
 if (isset(\$_SERVER['HTTP_X_FORWARDED_PROTO']) &&  strpos(\$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
     \$_SERVER['HTTPS'] = 'on';
 }
+define( 'PUBLIC_SITEURL', '${public_siteurl}' );
+define( 'EDITOR_SITEURL', '${editor_siteurl}' );
+define( 'INT_SITEURL', '${int_siteurl}' );
 define( 'FORCE_SSL_ADMIN', false );
 define( 'ADMIN_COOKIE_PATH', '/' );
 define( 'COOKIEPATH', '/' );
 define( 'SITECOOKIEPATH', '/' );
 define( 'COOKIE_DOMAIN', 'nationalarchives.gov.uk' );
 define( 'TEST_COOKIE', 'test_cookie' );
-define( 'WP_SITEURL', 'http://${domain}' );
-define( 'WP_HOME', 'http://${domain}' );
 define( 'WP_ALLOW_MULTISITE', true );
 define( 'MULTISITE', true );
 define( 'SUBDOMAIN_INSTALL', true );
-define( 'DOMAIN_CURRENT_SITE', '${domain}' );
+define( 'DOMAIN_CURRENT_SITE', '${int_siteurl}' );
 define( 'PATH_CURRENT_SITE', '/' );
 define( 'SITE_ID_CURRENT_SITE', 1 );
 define( 'BLOG_ID_CURRENT_SITE', 1 );
