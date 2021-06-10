@@ -71,12 +71,12 @@ resource "aws_security_group_rule" "rp_ssh_ingress" {
 }
 
 resource "aws_security_group_rule" "rp_vpn_ingress" {
-    from_port                = 22
-    to_port                  = 22
-    protocol                 = "tcp"
-    security_group_id        = aws_security_group.rp.id
-    type                     = "ingress"
-    source_security_group_id = aws_security_group.rp_lb.id
+    from_port         = 22
+    to_port           = 22
+    protocol          = "tcp"
+    security_group_id = aws_security_group.rp.id
+    type              = "ingress"
+    cidr_blocks       = var.vpn_cidr
 }
 
 resource "aws_security_group_rule" "rp_egress" {
