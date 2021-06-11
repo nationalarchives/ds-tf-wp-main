@@ -6,7 +6,7 @@ resource "aws_instance" "rp_primer" {
     subnet_id                   = var.subnet_id
     iam_instance_profile        = aws_iam_instance_profile.primer_rp_profile.name
     vpc_security_group_ids      = [
-        var.sg_id
+        aws_security_group.rp.id
     ]
 
     root_block_device {
@@ -14,7 +14,7 @@ resource "aws_instance" "rp_primer" {
         encrypted   = true
     }
 
-    user_data = templatefile("${path.module}/scripts/initial.sh", { s3_deployment_bucket = var.s3_deployment_bucket,  s3_deployment_root = var.s3_deployment_root })
+    user_data = templatefile("${path.module}/scripts/userdata.sh", { s3_deployment_bucket = var.s3_deployment_bucket,  s3_deployment_root = var.s3_deployment_root })
 
     tags = merge(var.tags, {
         Name = var.instance_name
