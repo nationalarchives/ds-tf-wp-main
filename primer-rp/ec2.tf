@@ -6,7 +6,7 @@ resource "aws_instance" "rp_primer" {
     subnet_id                   = var.subnet_id
     iam_instance_profile        = aws_iam_instance_profile.primer_rp_profile.name
     vpc_security_group_ids      = [
-        var.sg_id
+        aws_security_group.rp.id
     ]
 
     root_block_device {
