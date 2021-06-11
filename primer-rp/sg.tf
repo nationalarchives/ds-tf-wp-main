@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------
 # Security group reverse proxy primer instance
-# - allowing ports 22, 53 and 80
+# - allowing ports 22 from VPN
 # -----------------------------------------------------------------------------
 resource "aws_security_group" "rp" {
     name        = "primer-reverse-proxy-sg"
