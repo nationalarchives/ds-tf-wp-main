@@ -3,19 +3,22 @@
 # Update yum
 sudo yum update -y
 
-# Mount EFS storage
-sudo mkdir -p /mnt/efs
-sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 fs-051b2ef4.efs.eu-west-2.amazonaws.com:/ /mnt/efs
-sudo chmod 777 /mnt/efs
-cd /mnt/efs
-sudo chmod go+rw .
-cd /
+# create swap file
+sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
+sudo /sbin/mkswap /var/swap.1
+sudo /sbin/swapon /var/swap.1s
 
-# Link directory to EFS mount directory
-sudo ln -snf /mnt/efs /var/nationalarchives.gov.uk
+# Install NFS packages
+sudo yum install -y amazon-efs-utils
+sudo yum install -y nfs-utils
+sudo service nfs start
+sudo service nfs status
 
-# Auto mount EFS storage on reboot
-sudo echo "fs-051b2ef4.efs.eu-west-2.amazonaws.com:/ /mnt/efs nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,fsc,_netdev 0 0" >> /etc/fstab
+# Install Cloudwatch agent
+sudo yum install amazon-cloudwatch-agent -y
+sudo amazon-linux-extras install -y collectd
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/cloudwatch/cloudwatch-agent-config.json /opt/aws/amazon-cloudwatch-agent/bin/config.json
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
 
 # Copy configuration files
 sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/nginx.conf /etc/nginx/nginx.conf
