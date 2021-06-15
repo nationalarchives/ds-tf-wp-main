@@ -85,7 +85,7 @@ resource "aws_security_group_rule" "rp_ssh_ingress" {
     source_security_group_id = aws_security_group.rp_lb.id
 }
 
-resource "aws_security_group_rule" "rp_ssh_ingress" {
+resource "aws_security_group_rule" "rp_vpn_ingress" {
     from_port         = 22
     to_port           = 22
     protocol          = "tcp"
@@ -95,7 +95,7 @@ resource "aws_security_group_rule" "rp_ssh_ingress" {
         var.vpn_cidr]
 }
 
-resource "aws_security_group_rule" "rp_ssh_ingress" {
+resource "aws_security_group_rule" "rp_on_prem_ingress" {
     from_port         = 1024
     to_port           = 65535
     protocol          = "tcp"
