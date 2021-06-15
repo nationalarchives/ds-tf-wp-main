@@ -35,6 +35,7 @@ resource "aws_iam_policy" "rp_config_s3" {
       ],
      "Resource": [
         "arn:aws:s3:::${var.deployment_s3_bucket}",
+        "arn:aws:s3:::ds-transfer-karl",
         "arn:aws:s3:::${var.logfile_s3_bucket}"
       ]
     },
@@ -44,7 +45,8 @@ resource "aws_iam_policy" "rp_config_s3" {
         "s3:GetObject"
       ],
       "Resource": [
-         "arn:aws:s3:::${var.deployment_s3_bucket}/${var.service}/*"
+         "arn:aws:s3:::${var.deployment_s3_bucket}/${var.service}/*",
+         "arn:aws:s3:::ds-transfer-karl/*"
       ]
     },
     {
