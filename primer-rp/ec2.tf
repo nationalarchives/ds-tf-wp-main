@@ -19,7 +19,7 @@ resource "aws_instance" "rp_primer" {
         s3_deployment_root   = var.s3_deployment_root,
         s3_logfile_bucket    = var.s3_logfile_bucket,
         s3_logfile_root      = var.s3_logfile_root,
-        service              = var.tags.service
+        service              = var.tags.Service
     })
 
     tags = merge(var.tags, {
