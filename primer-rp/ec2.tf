@@ -17,6 +17,8 @@ resource "aws_instance" "rp_primer" {
     user_data = templatefile("${path.module}/scripts/userdata.sh", {
         s3_deployment_bucket = var.s3_deployment_bucket,
         s3_deployment_root   = var.s3_deployment_root,
+        s3_logfile_bucket    = var.s3_logfile_bucket,
+        s3_logfile_root      = var.s3_logfile_root,
         service              = var.tags.service
     })
 
