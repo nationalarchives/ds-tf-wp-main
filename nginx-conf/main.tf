@@ -25,3 +25,10 @@ resource "aws_s3_bucket_object" "admin_ips_conf" {
     source  = "scripts/admin_ips.conf"
     etag    = filemd5("scripts/admin_ips.conf")
 }
+
+resource "aws_s3_bucket_object" "nginx_logrotate" {
+    bucket  = var.deployment_s3_bucket
+    key     = "${var.service}/${var.nginx_conf_s3_key}/nginx"
+    source  = "scripts/nginx"
+    etag    = filemd5("scripts/nginx")
+}
