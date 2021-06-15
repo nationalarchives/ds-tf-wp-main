@@ -66,7 +66,7 @@ resource "aws_route53_zone" "reverse_proxy_public" {
 
 resource "aws_route53_record" "reverse_proxy_public" {
     count   = var.environment == "live" ? 0 : 1
-    zone_id = aws_route53_zone.reverse_proxy_public.zone_id
+    zone_id = aws_route53_zone.reverse_proxy_public[count.index].zone_id
     name    = var.public_domain_name
     type    = "A"
 
