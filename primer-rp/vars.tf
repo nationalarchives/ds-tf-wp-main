@@ -7,7 +7,6 @@ variable "ami_name" {}
 
 variable "instance_name" {}
 variable "key_name" {}
-variable "vpc_id" {}
 variable "subnet_id" {}
 variable "volume_size" {}
 variable "debug_cidr" {}
@@ -19,5 +18,7 @@ variable "public_ip" {
     default = false
 }
 
+variable "s3_logfile_bucket" {}
+variable "s3_logfile_root" {}
 variable "s3_deployment_bucket" {}
 variable "s3_deployment_root" {}
