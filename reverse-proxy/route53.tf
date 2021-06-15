@@ -51,7 +51,8 @@ resource "aws_route53_record" "acme_challenge_record" {
 # Public domain name (reverse proxy) and alias to reverse proxy instance
 # -----------------------------------------------------------------------------
 resource "aws_route53_zone" "reverse_proxy_public" {
-    name = var.public_domain_name
+    count = var.environment == "live" ? 0 : 1
+    name  = var.public_domain_name
 
     tags = {
         Service         = var.service
@@ -64,6 +65,7 @@ resource "aws_route53_zone" "reverse_proxy_public" {
 }
 
 resource "aws_route53_record" "reverse_proxy_public" {
+    count = var.environment == "live" ? 0 : 1
     zone_id = aws_route53_zone.reverse_proxy_public.zone_id
     name    = var.public_domain_name
     type    = "A"
