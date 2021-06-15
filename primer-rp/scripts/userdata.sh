@@ -89,8 +89,17 @@ sudo systemctl enable nginx
 sudo sytemctl start nginx
 
 # write script files to /usr/local/sbin/
-sudo cat << EOF > /usr/local/sbin/logfile_archive.sh
+sudo cat << EOF > logfile_archive.sh
 #!/bin/bash
 
+sudo aws s3 cp /var/log/nginx/ s3://${s3_logfile_bucket}/${s3_logfile_root}/nginx/ --recursive --exclude "*" --include "*.gz"
+sudo rm /var/log/nginx/*.gz
 
 EOF
+
+sudo mv logfile_archive.sh /usr/local/sbin/logfile_archive.sh
+sudo chmod u+x /usr/local/sbin/logfile_archive.sh
+
+# cronjob for logfile archiving
+echo "00 25 * * * root /usr/local/sbin/logfile_archive.sh" >> archivelogfiles
+sudo mv archivelogfiles /etc/cron.d/
