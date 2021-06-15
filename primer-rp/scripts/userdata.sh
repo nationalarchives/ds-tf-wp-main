@@ -17,7 +17,7 @@ sudo service nfs status
 # Install Cloudwatch agent
 sudo yum install amazon-cloudwatch-agent -y
 sudo amazon-linux-extras install -y collectd
-sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/cloudwatch/cloudwatch-agent-config.json /opt/aws/amazon-cloudwatch-agent/bin/config.json
+sudo aws s3 cp s3://${s3_deployment_bucket}/${service}/cloudwatch/cloudwatch-agent-config.json /opt/aws/amazon-cloudwatch-agent/bin/config.json
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
 
 # Copy configuration files
