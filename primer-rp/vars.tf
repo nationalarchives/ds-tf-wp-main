@@ -19,5 +19,7 @@ variable "public_ip" {
     default = false
 }
 
+variable "s3_logfile_bucket" {}
+variable "s3_logfile_root" {}
 variable "s3_deployment_bucket" {}
 variable "s3_deployment_root" {}
