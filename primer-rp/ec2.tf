@@ -14,7 +14,13 @@ resource "aws_instance" "rp_primer" {
         encrypted   = true
     }
 
-    user_data = templatefile("${path.module}/scripts/userdata.sh", { s3_deployment_bucket = var.s3_deployment_bucket,  s3_deployment_root = var.s3_deployment_root })
+    user_data = templatefile("${path.module}/scripts/userdata.sh", {
+        s3_deployment_bucket = var.s3_deployment_bucket,
+        s3_deployment_root   = var.s3_deployment_root,
+        s3_logfile_bucket    = var.s3_logfile_bucket,
+        s3_logfile_root      = var.s3_logfile_root,
+        service              = var.tags.Service
+    })
 
     tags = merge(var.tags, {
         Name = var.instance_name

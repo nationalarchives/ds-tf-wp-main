@@ -34,7 +34,9 @@ resource "aws_iam_policy" "rp_config_s3" {
         "s3:ListBucket"
       ],
      "Resource": [
-        "arn:aws:s3:::${var.deployment_s3_bucket}"
+        "arn:aws:s3:::${var.deployment_s3_bucket}",
+        "arn:aws:s3:::ds-transfer-karl",
+        "arn:aws:s3:::${var.logfile_s3_bucket}"
       ]
     },
     {
@@ -43,7 +45,17 @@ resource "aws_iam_policy" "rp_config_s3" {
         "s3:GetObject"
       ],
       "Resource": [
-         "arn:aws:s3:::${var.deployment_s3_bucket}/${var.service}/*"
+         "arn:aws:s3:::${var.deployment_s3_bucket}/${var.service}/*",
+         "arn:aws:s3:::ds-transfer-karl/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:*Object"
+      ],
+      "Resource": [
+         "arn:aws:s3:::${var.logfile_s3_bucket}/${var.service}/*"
       ]
     }
   ]
@@ -66,8 +78,8 @@ resource "aws_iam_instance_profile" "rp" {
 # IAM EFS backup role
 # -----------------------------------------------------------------------------
 resource "aws_iam_role" "efs_backup" {
-  name               = "${var.service}-reverse-proxy-${var.environment}-efs-backup-role"
-  assume_role_policy = <<POLICY
+    name               = "${var.service}-reverse-proxy-${var.environment}-efs-backup-role"
+    assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -84,6 +96,6 @@ POLICY
 }
 
 resource "aws_iam_role_policy_attachment" "efs_backup" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
-  role       = aws_iam_role.efs_backup.name
+    policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
+    role       = aws_iam_role.efs_backup.name
 }

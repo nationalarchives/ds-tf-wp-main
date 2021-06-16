@@ -56,6 +56,21 @@ resource "aws_iam_role_policy_attachment" "wp_deployment_s3_policy" {
     role       = aws_iam_role.primer.id
 }
 
+resource "aws_iam_role_policy_attachment" "smm_ec2_role_policy" {
+    policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+    role       = aws_iam_role.primer.id
+}
+
+resource "aws_iam_role_policy_attachment" "cloudwatch_agent_role_policy" {
+    policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+    role       = aws_iam_role.primer.id
+}
+
+resource "aws_iam_role_policy_attachment" "cloudwatch_agent_role_policy" {
+    policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+    role       = aws_iam_role.primer.id
+}
+
 resource "aws_iam_instance_profile" "primer" {
     name = "${var.service}-wp-primer-${var.environment}-iam-instance-profile"
     path = "/"

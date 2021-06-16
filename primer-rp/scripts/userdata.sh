@@ -17,7 +17,7 @@ sudo service nfs status
 # Install Cloudwatch agent
 sudo yum install amazon-cloudwatch-agent -y
 sudo amazon-linux-extras install -y collectd
-sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/cloudwatch/cloudwatch-agent-config.json /opt/aws/amazon-cloudwatch-agent/bin/config.json
+sudo aws s3 cp s3://${s3_deployment_bucket}/${service}/cloudwatch/cloudwatch-agent-config.json /opt/aws/amazon-cloudwatch-agent/bin/config.json
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
 
 # Copy configuration files
@@ -25,6 +25,7 @@ sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/nginx.co
 sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/admin_ips.conf /etc/nginx/admin_ips.conf
 sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/wp_admin.conf /etc/nginx/wp_admin.conf
 sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/wp_admin_subdomain.conf /etc/nginx/wp_admin_subdomain.conf
+sudo aws s3 cp s3://${s3_logfile_bucket}/${s3_logfile_root}/nginx/nginx /etc/logrotate.d/nginx
 
 # install all tools required for nginx compilation
 # please update the version for nginx to the lastest stable version
@@ -86,3 +87,19 @@ sudo cp ~/nginx.service /lib/systemd/system/nginx.service
 
 sudo systemctl enable nginx
 sudo sytemctl start nginx
+
+# write script files to /usr/local/sbin/
+sudo cat << EOF > logfile_archive.sh
+#!/bin/bash
+
+sudo aws s3 cp /var/log/nginx/ s3://${s3_logfile_bucket}/${s3_logfile_root}/nginx/ --recursive --exclude "*" --include "*.gz"
+sudo rm /var/log/nginx/*.gz
+
+EOF
+
+sudo mv logfile_archive.sh /usr/local/sbin/logfile_archive.sh
+sudo chmod u+x /usr/local/sbin/logfile_archive.sh
+
+# cronjob for logfile archiving
+echo "00 25 * * * root /usr/local/sbin/logfile_archive.sh" >> archivelogfiles
+sudo mv archivelogfiles /etc/cron.d/
