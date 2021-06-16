@@ -68,6 +68,11 @@ resource "aws_iam_role_policy_attachment" "cloudwatch_agent_role_policy" {
     role       = aws_iam_role.website.id
 }
 
+resource "aws_iam_role_policy_attachment" "cloudwatch_agent_role_policy" {
+    policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+    role       = aws_iam_role.website.id
+}
+
 resource "aws_iam_instance_profile" "website" {
     name = "${var.service}-wp-${var.environment}-iam-instance-profile"
     path = "/"
