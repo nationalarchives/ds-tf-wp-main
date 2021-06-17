@@ -16,7 +16,9 @@ resource "aws_s3_bucket_object" "admin_conf" {
     bucket = var.deployment_s3_bucket
     key    = "${var.service}/${var.nginx_conf_s3_key}/wp_admin.conf"
     source = templatefile("${path.module}/scripts/wp_admin.conf", {
-        admin_list      = var.admin_list
+        environment      = var.environment,
+        set_real_ip_from = var.set_real_ip_from,
+        resolver         = var.resolver
     })
     etag   = filemd5("${path.module}/scripts/wp_admin.conf")
 }
@@ -35,7 +37,9 @@ resource "aws_s3_bucket_object" "admin_subdomain_conf" {
 resource "aws_s3_bucket_object" "admin_ips_conf" {
     bucket = var.deployment_s3_bucket
     key    = "${var.service}/${var.nginx_conf_s3_key}/admin_ips.conf"
-    source = "${path.module}/scripts/admin_ips.conf"
+    source = templatefile("${path.module}/scripts/admin_ips.conf", {
+        admin_list = var.admin_list
+    })
     etag   = filemd5("${path.module}/scripts/admin_ips.conf")
 }
 
