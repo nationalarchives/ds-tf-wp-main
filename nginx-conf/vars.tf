@@ -10,3 +10,4 @@ variable "resolver" {}
 variable "ups_website" {}
 variable "ups_appslb" {}
 variable "ups_legacy_apps" {}
+variable "admin_list" {}

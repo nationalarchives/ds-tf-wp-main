@@ -16,9 +16,7 @@ resource "aws_s3_bucket_object" "admin_conf" {
     bucket = var.deployment_s3_bucket
     key    = "${var.service}/${var.nginx_conf_s3_key}/wp_admin.conf"
     source = templatefile("${path.module}/scripts/wp_admin.conf", {
-        environment      = var.environment,
-        set_real_ip_from = var.set_real_ip_from,
-        resolver         = var.resolver
+        admin_list      = var.admin_list
     })
     etag   = filemd5("${path.module}/scripts/wp_admin.conf")
 }
