@@ -20,11 +20,14 @@ sudo amazon-linux-extras install -y collectd
 sudo aws s3 cp s3://${s3_deployment_bucket}/${service}/cloudwatch/cloudwatch-agent-config.json /opt/aws/amazon-cloudwatch-agent/bin/config.json
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
 
-# Copy configuration files
-sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/nginx.conf /etc/nginx/nginx.conf
-sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/admin_ips.conf /etc/nginx/admin_ips.conf
-sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/wp_admin.conf /etc/nginx/wp_admin.conf
-sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/wp_admin_subdomain.conf /etc/nginx/wp_admin_subdomain.conf
+# Copy configuration files for nginx
+sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/ /etc/nginx/ --recursive --exclude "*" --include "*.conf"
+#sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/nginx.conf /etc/nginx/nginx.conf
+#sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/admin_ips.conf /etc/nginx/admin_ips.conf
+#sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/wp_admin.conf /etc/nginx/wp_admin.conf
+#sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/wp_admin_subdomain.conf /etc/nginx/wp_admin_subdomain.conf
+
+# Copy configuration files for nginx log rotation
 sudo aws s3 cp s3://${s3_logfile_bucket}/${s3_logfile_root}/nginx/nginx /etc/logrotate.d/nginx
 
 # install all tools required for nginx compilation
