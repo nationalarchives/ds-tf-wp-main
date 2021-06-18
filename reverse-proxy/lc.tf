@@ -6,7 +6,13 @@ resource "aws_launch_configuration" "rp" {
     image_id             = var.ami_id
     instance_type        = var.instance_type
     iam_instance_profile = aws_iam_instance_profile.rp.name
-    user_data            = data.template_file.ec2_userdata.rendered
+    user_data            = templatefile("${path.module}/scripts/userdata.sh", {
+        service              = var.service,
+        mount_target         = aws_efs_file_system.rp_efs.dns_name,
+        mount_dir            = var.efs_mount_dir,
+        deployment_s3_bucket = var.deployment_s3_bucket,
+        nginx_conf_s3_key    = var.nginx_conf_s3_key
+    })
     key_name             = var.key_name
 
     security_groups = [
@@ -14,22 +20,10 @@ resource "aws_launch_configuration" "rp" {
 
     root_block_device {
         volume_size = 100
-        encrypted = true
+        encrypted   = true
     }
 
     lifecycle {
         create_before_destroy = true
-    }
-}
-
-data "template_file" "ec2_userdata" {
-    template = file("${path.module}/scripts/userdata.sh")
-
-    vars = {
-        service                 = var.service
-        mount_target            = aws_efs_file_system.rp_efs.dns_name
-        mount_dir               = var.efs_mount_dir
-        deployment_s3_bucket    = var.deployment_s3_bucket
-        nginx_conf_s3_key       = var.nginx_conf_s3_key
     }
 }
