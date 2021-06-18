@@ -35,7 +35,7 @@ variable "efs_mount_dir" {}
 variable "deployment_s3_bucket" {}
 variable "logfile_s3_bucket" {}
 
-variable "nginx_conf_s3_key" {}
+variable "nginx_folder_s3_key" {}
 
 variable "editorial_domain_name" {}
 
