@@ -23,10 +23,10 @@ sudo ln -snf ${mount_dir} /var/nationalarchives.gov.uk
 
 # Copy configuration files
 sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/${nginx_conf_s3_key}/nginx.conf /etc/nginx/nginx.conf
-sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/admin_ips.conf /etc/nginx/admin_ips.conf
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/nginx/admin_ips.conf /etc/nginx/admin_ips.conf
 sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/${nginx_conf_s3_key}/wp_admin.conf /etc/nginx/wp_admin.conf
 sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/${nginx_conf_s3_key}/wp_admin_subdomain.conf /etc/nginx/wp_admin_subdomain.conf
-sudo aws s3 cp s3://${s3_logfile_bucket}/${s3_logfile_root}/nginx/nginx /etc/logrotate.d/nginx
+sudo aws s3 cp s3://${s3_logfile_bucket}/${service}/nginx/nginx /etc/logrotate.d/nginx
 
 # Restart nginx to reload new config file
 sudo systemctl restart nginx
