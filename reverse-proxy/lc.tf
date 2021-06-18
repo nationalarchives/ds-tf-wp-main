@@ -11,7 +11,7 @@ resource "aws_launch_configuration" "rp" {
         mount_target         = aws_efs_file_system.rp_efs.dns_name,
         mount_dir            = var.efs_mount_dir,
         deployment_s3_bucket = var.deployment_s3_bucket,
-        nginx_conf_s3_key    = var.nginx_conf_s3_key
+        nginx_folder_s3_key  = var.nginx_folder_s3_key
     })
     key_name             = var.key_name
 
