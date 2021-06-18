@@ -58,8 +58,8 @@ sudo mkdir /var/lib/nginx/tmp/proxy
 sudo mkdir /var/lib/nginx/tmp/scgi
 sudo mkdir /var/lib/nginx/tmp/uwsgi
 
-sudo chown -R nginx /var/lib/nginx/
-sudo chown -R nginx /var/log/nginx/
+sudo chown -R nginx:nginx /var/lib/nginx/
+sudo chown -R nginx:nginx /var/log/nginx/
 
 # prepare nginx as service
 sudo cat << EOF > ~/nginx.service
@@ -89,7 +89,7 @@ EOF
 sudo cp ~/nginx.service /lib/systemd/system/nginx.service
 
 sudo systemctl enable nginx
-sudo sytemctl start nginx
+sudo systemctl start nginx
 
 # write script files to /usr/local/sbin/
 sudo cat << EOF > logfile_archive.sh
