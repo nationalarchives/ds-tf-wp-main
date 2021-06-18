@@ -22,10 +22,6 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-c
 
 # Copy configuration files for nginx
 sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/ /etc/nginx/ --recursive --exclude "*" --include "*.conf"
-#sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/nginx.conf /etc/nginx/nginx.conf
-#sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/admin_ips.conf /etc/nginx/admin_ips.conf
-#sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/wp_admin.conf /etc/nginx/wp_admin.conf
-#sudo aws s3 cp s3://${s3_deployment_bucket}/${s3_deployment_root}/nginx/wp_admin_subdomain.conf /etc/nginx/wp_admin_subdomain.conf
 
 # Copy configuration files for nginx log rotation
 sudo aws s3 cp s3://${s3_logfile_bucket}/${s3_logfile_root}/nginx/nginx /etc/logrotate.d/nginx
