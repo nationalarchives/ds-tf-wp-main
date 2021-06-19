@@ -40,3 +40,8 @@ resource "aws_iam_instance_profile" "primer_rp_profile" {
     path = "/"
     role = aws_iam_role.primer_rp.name
 }
+
+resource "aws_iam_role_policy_attachment" "rp_ssm_policy" {
+    policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+    role       = aws_iam_role.primer_rp.id
+}

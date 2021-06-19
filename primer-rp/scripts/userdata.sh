@@ -106,4 +106,6 @@ sudo mv archivelogfiles /etc/cron.d/
 %{ if ssm_download_region != "" ~}
 # install ssm agent -x86_64
 sudo yum install -y https://s3.${ssm_download_region}.amazonaws.com/amazon-ssm-${ssm_download_region}/latest/linux_amd64/amazon-ssm-agent.rpm
+sudo systemctl enable amazon-ssm-agent
+sudo systemctl start amazon-ssm-agent
 %{ endif ~}
