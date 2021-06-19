@@ -68,6 +68,11 @@ resource "aws_iam_role_policy_attachment" "rp_s3_role_policy" {
     role       = aws_iam_role.rp_assume_role.id
 }
 
+resource "aws_iam_role_policy_attachment" "rp_ssm_policy" {
+    policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+    role       = aws_iam_role.rp_assume_role.id
+}
+
 resource "aws_iam_instance_profile" "rp" {
     name = "${var.service}-reverse-proxy-${var.environment}-profile"
     path = "/"
@@ -99,3 +104,4 @@ resource "aws_iam_role_policy_attachment" "efs_backup" {
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
     role       = aws_iam_role.efs_backup.name
 }
+

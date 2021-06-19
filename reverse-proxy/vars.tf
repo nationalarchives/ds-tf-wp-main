@@ -14,20 +14,16 @@ variable "private_subnet_b_id" {}
 variable "asg_max_size" {}
 variable "asg_min_size" {}
 variable "asg_desired_capacity" {}
-
 variable "asg_health_check_grace_period" {}
 variable "asg_health_check_type" {}
 
 variable "patch_group_name" {}
 
 variable "public_ssl_cert_arn" {}
-
 variable "sub_sub_domain_ssl_cert_arn" {}
 
 variable "ami_id" {}
-
 variable "instance_type" {}
-
 variable "key_name" {}
 
 variable "efs_mount_dir" {}

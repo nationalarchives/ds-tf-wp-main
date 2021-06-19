@@ -19,6 +19,7 @@ variable "public_ip" {
     default = false
 }
 
+variable "ssm_download_region" {}
 variable "s3_logfile_bucket" {}
 variable "s3_logfile_root" {}
 variable "s3_deployment_bucket" {}
