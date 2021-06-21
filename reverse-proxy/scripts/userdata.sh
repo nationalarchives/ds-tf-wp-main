@@ -17,9 +17,13 @@ sudo echo "${mount_target}:/ ${mount_dir} nfs4 nfsvers=4.1,rsize=1048576,wsize=1
 # Link directory to EFS mount directory
 sudo ln -snf ${mount_dir} /var/nationalarchives.gov.uk
 
-# Copy configuration files
+# Copy configuration files and scripts
 sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/${nginx_folder_s3_key}/ /etc/nginx/ --recursive --exclude "*" --include "*.conf"
 sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/${nginx_folder_s3_key}/nginx /etc/logrotate.d/nginx
+sudo aws s3 cp s3://${deployment_s3_bucket}/${service}/${nginx_folder_s3_key}/update_nginx_confs.sh ~/update_nginx_confs.sh
 
 # Restart nginx to reload new config file
 sudo systemctl restart nginx
+
+sudo mv ~/update_nginx_confs.sh /usr/local/sbin/update_nginx_confs.sh
+sudo chmod u+x /usr/local/sbin/update_nginx_confs.sh
