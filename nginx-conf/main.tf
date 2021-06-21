@@ -49,3 +49,14 @@ resource "aws_s3_bucket_object" "nginx_logrotate" {
     source = "${path.module}/scripts/nginx"
     etag   = filemd5("${path.module}/scripts/nginx")
 }
+
+resource "aws_s3_bucket_object" "update_nginx_confs" {
+    bucket  = var.deployment_s3_bucket
+    key     = "${var.service}/${var.nginx_folder_s3_key}/update_nginx_confs.sh"
+    content = templatefile("${path.module}/scripts/update_nginx_confs.sh", {
+        deployment_s3_bucket = var.deployment_s3_bucket,
+        nginx_folder_s3_key  = var.nginx_folder_s3_key,
+        service              = var.service
+    })
+    etag    = filemd5("${path.module}/scripts/update_nginx_confs.sh")
+}
