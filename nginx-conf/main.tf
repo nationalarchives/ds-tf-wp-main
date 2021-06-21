@@ -58,5 +58,5 @@ resource "aws_s3_bucket_object" "update_nginx_confs" {
         nginx_folder_s3_key  = var.nginx_folder_s3_key,
         service              = var.service
     })
-    etag    = filemd5("${path.module}/scripts/nginx")
+    etag    = filemd5("${path.module}/scripts/update_nginx_confs.sh")
 }
