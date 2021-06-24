@@ -110,7 +110,8 @@ wp core download --allow-root
 # Create WP config file
 /usr/local/bin/wp config create --dbhost=${db_host} --dbname=${db_name} --dbuser=${db_user} --dbpass="${db_pass}" --allow-root --extra-php <<PHP
 /* Turn HTTPS 'on' if HTTP_X_FORWARDED_PROTO matches 'https' */
-if (isset(\$_SERVER['HTTP_X_FORWARDED_PROTO']) &&  strpos(\$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
+\$headers = apache_request_headers();
+if (isset(\$headers['HTTP_X_FORWARDED_PROTO']) &&  strpos(\$headers['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
     \$_SERVER['HTTPS'] = 'on';
 }
 define( 'PUBLIC_SITEURL', '${public_siteurl}' );
