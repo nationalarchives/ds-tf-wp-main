@@ -100,7 +100,7 @@ sudo mv logfile_archive.sh /usr/local/sbin/logfile_archive.sh
 sudo chmod u+x /usr/local/sbin/logfile_archive.sh
 
 # cronjob for logfile archiving
-echo "00 25 * * * root /usr/local/sbin/logfile_archive.sh" >> archivelogfiles
+printf "%s\n" "17 0 * * * root /usr/local/sbin/logfile_archive.sh >>/usr/local/sbin/logfile_archive.out 2>&1" "" >> archivelogfiles
 sudo mv archivelogfiles /etc/cron.d/
 
 %{ if ssm_download_region != "" ~}
