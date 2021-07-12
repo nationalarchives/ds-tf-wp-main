@@ -34,7 +34,8 @@ sudo yum install -y system-rpm-config
 sudo yum install -y wget openssl-devel libxml2-devel libxslt-devel gd-devel
 sudo yum install -y perl-ExtUtils-Embed GeoIP-devel gperftools gperftools-devel libatomic_ops-devel
 
-sudo curl -O http://nginx.org/download/nginx-1.21.0.tar.gz
+echo -------------------------------------------
+sudo curl -O http://nginx.org/download/nginx-1.21.1.tar.gz
 sudo tar -xvf nginx-1.21.1.tar.gz
 sudo rm nginx-1.21.1.tar.gz
 cd nginx-1.21.1/
