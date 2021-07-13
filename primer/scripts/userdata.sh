@@ -88,10 +88,11 @@ sudo echo "# file: /etc/httpd/conf.d/wordpress.conf
 sudo systemctl restart httpd
 
 # Create .htaccess
-sudo echo "# BEGIN WordPress
+sudo echo "# BEGIN WordPress Multisite
 RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteBase /
-RewriteRule ^index.php$ - [L]
+RewriteRule ^index\.php$ - [L]
 
 # add a trailing slash to /wp-admin
 RewriteRule ^wp-admin$ wp-admin/ [R=301,L]
@@ -99,10 +100,10 @@ RewriteRule ^wp-admin$ wp-admin/ [R=301,L]
 RewriteCond %%{REQUEST_FILENAME} -f [OR]
 RewriteCond %%{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
-RewriteRule ^(wp-(content|admin|includes).*) $1 [L]
-RewriteRule ^(.*\.php)$ wp/$1 [L]
+RewriteRule ^(wp-(content|admin|includes).*) \$1 [L]
+RewriteRule ^(.*\.php)$ \$1 [L]
 RewriteRule . index.php [L]
-# END WordPress\
+# END WordPress
 Options All -Indexes" >> /var/www/html/.htaccess
 
 wp core download --allow-root
