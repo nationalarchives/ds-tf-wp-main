@@ -90,7 +90,7 @@ sudo systemctl restart httpd
 # Create .htaccess
 sudo echo "# BEGIN WordPress Multisite
 RewriteEngine On
-RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%%{HTTP:Authorization}]
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
 
