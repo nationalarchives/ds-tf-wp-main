@@ -43,6 +43,15 @@ resource "aws_s3_bucket_object" "admin_ips_conf" {
     etag    = filemd5("${path.module}/scripts/admin_ips.conf")
 }
 
+resource "aws_s3_bucket_object" "site_access_ips_conf" {
+    bucket  = var.deployment_s3_bucket
+    key     = "${var.service}/${var.nginx_folder_s3_key}/site_access_ips.conf"
+    content = templatefile("${path.module}/scripts/site_access_ips.conf", {
+        site_access_list = var.site_access_list
+    })
+    etag    = filemd5("${path.module}/scripts/site_access_ips.conf")
+}
+
 resource "aws_s3_bucket_object" "nginx_logrotate" {
     bucket = var.deployment_s3_bucket
     key    = "${var.service}/${var.nginx_folder_s3_key}/nginx"
