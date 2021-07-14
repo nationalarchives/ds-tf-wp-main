@@ -47,7 +47,7 @@ resource "aws_s3_bucket_object" "site_access_ips_conf" {
     bucket  = var.deployment_s3_bucket
     key     = "${var.service}/${var.nginx_folder_s3_key}/site_access_ips.conf"
     content = templatefile("${path.module}/scripts/site_access_ips.conf", {
-        admin_list = var.admin_list
+        site_access_list = var.site_access_list
     })
     etag    = filemd5("${path.module}/scripts/site_access_ips.conf")
 }
